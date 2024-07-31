@@ -24,6 +24,8 @@ class TextButtons extends StatelessWidget {
                 decoration: TextDecoration.underline,
                 decorationColor:textColor,
                 decorationThickness: 2
-            )));
+            )
+        )
+    );
   }
 }
