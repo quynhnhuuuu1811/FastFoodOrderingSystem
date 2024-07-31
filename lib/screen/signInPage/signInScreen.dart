@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fastfood_ordering_system/screen/signInPage/widgets/Register.dart';
+import 'package:fastfood_ordering_system/screen/signInPage/widgets/SignInButton.dart';
+import 'package:fastfood_ordering_system/screen/signInPage/widgets/TextFieldSignIn.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/Register.dart';
-import '../widgets/SignInButton.dart';
-import '../widgets/TextFieldSignIn.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

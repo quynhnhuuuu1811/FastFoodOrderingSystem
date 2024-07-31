@@ -86,6 +86,9 @@ flutter:
     - family: Anton
       fonts:
       - asset: assets/fonts/Anton.ttf
+    - family: Shopee_Medium
+      fonts:
+        - asset: assets/fonts/Shopee_Medium.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

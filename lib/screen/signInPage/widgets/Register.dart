@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../signUpPage/signUpScreen.dart';
+
 class Register extends StatelessWidget {
   const Register({
     super.key,
@@ -16,7 +18,14 @@ class Register extends StatelessWidget {
                 fontSize: 17
             )),
         TextButton(
-            onPressed: () {  },
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignUpScreen(),
+                ),
+              );
+            },
             child:Text('Đăng kí ngay',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
+import 'package:fastfood_ordering_system/screen/introPage/IntroScreen.dart';
 import 'package:flutter/material.dart';
-import 'core/introPage/screens/IntroScreen.dart';
+
 
 void main() {
   runApp(const MyApp());

@@ -2,7 +2,7 @@ import 'package:fastfood_ordering_system/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import '../widgets/StartedButton.dart';
+import 'widgets/StartedButton.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
