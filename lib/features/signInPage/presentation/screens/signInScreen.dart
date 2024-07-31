@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/Register.dart';
 import '../widgets/SignInButton.dart';
 import '../widgets/TextFieldSignIn.dart';
 
@@ -20,7 +21,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,7 +34,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   width: 400,
                 ),
               ),
-              git remote add origin https://github.com/quynhnhuuuu1811/FastFoodOrderingSystem.git
 
               TextFieldSignIn(
                 controller: phoneController,
@@ -49,7 +49,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 isPassword: true, // Password field
               ),
               SizedBox(height: 30),
-              SignInButton()
+              SignInButton(),
+              Register(),
             ],
           ),
         ),
