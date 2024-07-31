@@ -2,7 +2,8 @@ import 'package:fastfood_ordering_system/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'widgets/StartedButton.dart';
+import '../signInPage/signInScreen.dart';
+import '../widget/RoundedButton.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -32,7 +33,18 @@ class _IntroScreenState extends State<IntroScreen> {
                 child: SizedBox(
                   width: 270,
                   height: 80,
-                  child: ButtonStarted(),
+                  child: RoundedButton(
+                    buttonColor: Colors.white,
+                    buttonText: 'Bắt đầu ngay',
+                    textColor: Colors.black,
+                    iconColor: Colors.black,
+                    destination: SignInScreen(),
+                    font: 'Anton',
+                    fontSize:30,
+                    icon: Icon(Icons.navigate_next,
+                    size:50,
+                    color:Colors.black),
+                  ),
                 ),
               ),
             ),

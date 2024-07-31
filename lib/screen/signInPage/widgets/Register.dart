@@ -30,7 +30,7 @@ class Register extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: 17
+                    fontSize: 18
                 )))
       ],
     );

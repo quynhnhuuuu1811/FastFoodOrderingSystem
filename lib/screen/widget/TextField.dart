@@ -1,52 +1,63 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TextFieldSignUp extends StatelessWidget {
-  const TextFieldSignUp({
+class RoundedTextField extends StatelessWidget {
+  const RoundedTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.icon,
     required this.isPassword,
+    required this.selectColor,
+    required this.keyboardType,
+    required this.hintTextColor
   });
 
   final TextEditingController controller;
   final String hintText;
   final IconData icon;
   final bool isPassword;
+  final TextInputType keyboardType;
+  final Color selectColor;
+  final Color hintTextColor;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 20),
       child: TextField(
         controller: controller,
-        obscureText: isPassword,
+        obscureText: isPassword, // Toggle obscureText based on isPassword
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
-            color: Colors.white,
-            size: 30,
+            color: selectColor,
+            size: 25,
           ),
           hintText: hintText,
           hintStyle: TextStyle(
-            color: Colors.white, // Set hint text color to white
+            color: hintTextColor,
+                fontStyle: FontStyle.italic
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.white,
+            borderSide: BorderSide(
+              color:selectColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.white,
+            borderSide: BorderSide(
+              color: selectColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
         ),
+        keyboardType: keyboardType,
+        style: TextStyle(
+          color: selectColor
+        )
       ),
     );
   }

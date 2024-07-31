@@ -1,7 +1,10 @@
+import 'package:fastfood_ordering_system/core/constant/app_color.dart';
 import 'package:fastfood_ordering_system/screen/signInPage/widgets/Register.dart';
-import 'package:fastfood_ordering_system/screen/signInPage/widgets/SignInButton.dart';
-import 'package:fastfood_ordering_system/screen/signInPage/widgets/TextFieldSignIn.dart';
+import 'package:fastfood_ordering_system/screen/widget/TextField.dart';
 import 'package:flutter/material.dart';
+
+import '../signUpPage/signUpScreen.dart';
+import '../widget/RoundedButton.dart';
 
 
 class SignInScreen extends StatefulWidget {
@@ -29,26 +32,39 @@ class _SignInScreenState extends State<SignInScreen> {
               Center(
                 child: Image.asset(
                   'assets/images/logo_nentrang.png',
-                  height: 400,
-                  width: 400,
+                  height: 370,
+                  width: 370,
                 ),
               ),
 
-              TextFieldSignIn(
+              RoundedTextField(
                 controller: phoneController,
                 hintText: 'Nhập số điện thoại',
                 icon: Icons.account_box,
-                isPassword: false, // Not a password field
+                isPassword: false,
+                selectColor: Colors.black,
+                keyboardType: TextInputType.number,
+                hintTextColor: AppColors.grayColor,
               ),
-              const SizedBox(height: 20), // Add more space if needed
-              TextFieldSignIn(
+              RoundedTextField(
                 controller: passwordController,
                 hintText: 'Nhập mật khẩu',
-                icon: Icons.lock,
-                isPassword: true, // Password field
+                icon: Icons.key,
+                isPassword: false,
+                selectColor: Colors.black,
+                keyboardType: TextInputType.text,
+                hintTextColor: AppColors.grayColor,
               ),
-              SizedBox(height: 30),
-              SignInButton(),
+              const SizedBox(height: 20), // Add more space if needed
+              SizedBox(height: 20),
+              RoundedButton(
+                buttonText: 'Đăng nhập',
+                textColor: Colors.white,
+                buttonColor: Colors.black,
+                destination: SignUpScreen(),
+                fontSize: 20
+
+              ),
               Register(),
             ],
           ),
