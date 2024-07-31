@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../signUpPage/signUpScreen.dart';
+import '../../widget/TextButtons.dart';
 
 class Register extends StatelessWidget {
   const Register({
@@ -10,28 +10,19 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('Chưa có tài khoản?',
             style: TextStyle(
                 fontSize: 17
             )),
-        TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SignUpScreen(),
-                ),
-              );
-            },
-            child:Text('Đăng kí ngay',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 18
-                )))
+        TextButtons(
+          text:'Đăng kí ngay!',
+          textColor: Colors.black,
+          textSize: 18,
+          destination: SignUpScreen(),
+        )
       ],
     );
   }

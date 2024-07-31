@@ -3,7 +3,9 @@ import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../signInPage/signInScreen.dart';
 import '../widget/RoundedButton.dart';
+import '../widget/TextButtons.dart';
 import '../widget/TextField.dart';
 
 
@@ -54,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontFamily: 'Shopee_Bold',
                       )
                       ),
-                      SizedBox(height: 50),
+                      SizedBox(height: 20),
                       RoundedTextField(
                         controller: _phoneController,
                         hintText:'Nhập số điện thọai',
@@ -98,8 +100,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         buttonText: 'Đăng kí ngay',
                         fontSize: 20,
                         textColor: Colors.black,
-                        destination: HomePageScreen(),
-
+                        destination: SignInScreen(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(180,10,0,10),
+                        child: TextButtons(
+                          text: "Quay về",
+                          textColor: Colors.white,
+                          textSize: 20,
+                          destination: SignInScreen(),
+                        ),
                       )
               
                     ]
@@ -113,3 +123,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
+

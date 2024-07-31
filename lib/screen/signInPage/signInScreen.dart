@@ -1,4 +1,5 @@
 import 'package:fastfood_ordering_system/core/constant/app_color.dart';
+import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.dart';
 import 'package:fastfood_ordering_system/screen/signInPage/widgets/Register.dart';
 import 'package:fastfood_ordering_system/screen/widget/TextField.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 buttonText: 'Đăng nhập',
                 textColor: Colors.white,
                 buttonColor: Colors.black,
-                destination: SignUpScreen(),
+                destination: HomePageScreen(),
                 fontSize: 20
 
               ),
