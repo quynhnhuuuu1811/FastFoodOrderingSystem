@@ -38,10 +38,12 @@ class _IntroScreenState extends State<IntroScreen> {
                     buttonText: 'Bắt đầu ngay',
                     textColor: Colors.black,
                     iconColor: Colors.black,
-                    destination: SignInScreen(),
+                    onpressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                    },
                     font: 'Anton',
                     fontSize:30,
-                    icon: Icon(Icons.navigate_next,
+                    icon: const Icon(Icons.navigate_next,
                     size:50,
                     color:Colors.black),
                   ),

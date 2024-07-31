@@ -10,7 +10,9 @@ class RoundedTextField extends StatelessWidget {
     required this.isPassword,
     required this.selectColor,
     required this.keyboardType,
-    required this.hintTextColor
+    required this.hintTextColor,
+    required this.textInputAction,
+    required this.validator
   });
 
   final TextEditingController controller;
@@ -20,14 +22,16 @@ class RoundedTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Color selectColor;
   final Color hintTextColor;
+  final TextInputAction textInputAction;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 20),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
-        obscureText: isPassword, // Toggle obscureText based on isPassword
+        obscureText: isPassword,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
@@ -55,6 +59,8 @@ class RoundedTextField extends StatelessWidget {
           ),
         ),
         keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          validator: validator,
         style: TextStyle(
           color: selectColor
         )

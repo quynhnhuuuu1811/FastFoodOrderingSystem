@@ -8,34 +8,26 @@ class RoundedButton extends StatelessWidget {
     required this.textColor,
     this.iconColor,
     required this.buttonText,
-    required this.destination,
     this.font,
     this.icon,
-    required this.fontSize
+    required this.fontSize,
+    required this.onpressed
   });
 
   final Color buttonColor;
   final Color textColor;
   final Color? iconColor;
   final String buttonText;
-  final Widget destination;
   final String? font;
   final Icon? icon;
   final double fontSize;
-
+  final VoidCallback onpressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => destination,
-          ),
-        );
-      },
+      onPressed:onpressed ,
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         backgroundColor: buttonColor,
       ),
       child: Row(
@@ -49,9 +41,9 @@ class RoundedButton extends StatelessWidget {
               fontFamily: font,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           if (icon != null) ...[ // Kiểm tra xem icon có được cung cấp không
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             icon!,
           ],
         ],

@@ -10,10 +10,10 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Chưa có tài khoản?',
+        const Text('Chưa có tài khoản?',
             style: TextStyle(
                 fontSize: 17
             )),
@@ -21,7 +21,9 @@ class Register extends StatelessWidget {
           text:'Đăng kí ngay!',
           textColor: Colors.black,
           textSize: 18,
-          destination: SignUpScreen(),
+          onpressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+          },
         )
       ],
     );

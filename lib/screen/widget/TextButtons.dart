@@ -4,27 +4,19 @@ class TextButtons extends StatelessWidget {
   const TextButtons({
     super.key,
     required this.text,
-    required this.destination,
     required this.textSize,
-    required this.textColor
+    required this.textColor,
+    required this.onpressed
   });
 
   final String text;
-  final Widget destination;
   final double textSize;
   final Color textColor;
-
+  final VoidCallback onpressed;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => destination,
-          ),
-        );
-      },
+      onPressed: onpressed,
         child:Text(text,
             style: TextStyle(
                 color:textColor,

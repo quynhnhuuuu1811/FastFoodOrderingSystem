@@ -3,6 +3,7 @@ import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/validate.dart';
 import '../signInPage/signInScreen.dart';
 import '../widget/RoundedButton.dart';
 import '../widget/TextButtons.dart';
@@ -65,6 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         selectColor: Colors.white,
                         keyboardType: TextInputType.phone,
                         hintTextColor: AppColors.grayColor,
+                        textInputAction: TextInputAction.next,
+                        validator:validatePhoneNumber ,
                       ),
                       RoundedTextField(
                         controller: _fullnameController,
@@ -74,6 +77,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         selectColor: Colors.white,
                         keyboardType: TextInputType.name,
                         hintTextColor: AppColors.grayColor,
+                        textInputAction: TextInputAction.next,
+                        validator:validateFullName ,
                       ),
               
                       RoundedTextField(
@@ -84,6 +89,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         selectColor: Colors.white,
                         keyboardType: TextInputType.text,
                         hintTextColor: AppColors.grayColor,
+                        textInputAction: TextInputAction.next,
+                        validator: validatePassword,
                       ),
                       RoundedTextField(
                         controller: _checkpasswordController,
@@ -93,22 +100,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         selectColor: Colors.white,
                         keyboardType: TextInputType.text,
                         hintTextColor: AppColors.grayColor,
+                        textInputAction: TextInputAction.done,
+                        validator: (value)=>validateConfirmPassword(_passwordController.text, value),
                       ),
-                      SizedBox(height:30),
+                      const SizedBox(height:30),
                       RoundedButton(
                         buttonColor: Colors.white,
                         buttonText: 'Đăng kí ngay',
                         fontSize: 20,
                         textColor: Colors.black,
-                        destination: SignInScreen(),
+                        onpressed: (){},
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(180,10,0,10),
+                        padding: const EdgeInsets.fromLTRB(180,10,0,10),
                         child: TextButtons(
                           text: "Quay về",
                           textColor: Colors.white,
                           textSize: 20,
-                          destination: SignInScreen(),
+                          onpressed: (){
+                            Navigator.pop(context);
+                          }
                         ),
                       )
               
