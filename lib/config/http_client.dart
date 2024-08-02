@@ -2,6 +2,6 @@ import 'package:dio/dio.dart';
 
 final dio =Dio(
   BaseOptions(
-    baseUrl: 'https://localhost:3000/',
+    baseUrl: 'http://192.168.100.219:3000/',
   ),
 );

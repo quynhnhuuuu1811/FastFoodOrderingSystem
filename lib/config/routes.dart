@@ -1,5 +1,8 @@
+import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/auth/bloc/auth_bloc.dart';
 import '../screen/signInPage/signInScreen.dart';
 
 class RouteName{
@@ -13,16 +16,21 @@ class RouteName{
 }
 
 final router =GoRouter(
-  redirect:(context, state){
-    if(RouteName.publicRoutes.contains(state.fullPath)){
-      return null;
-    }
-    //If user is not login
-    return RouteName.login;
-  },
+    redirect: (context, state) {
+      if (RouteName.publicRoutes.contains(state.fullPath)) {
+        return null;
+      }
+      if (context.read<AuthBloc>().state.status == AuthStatus.success) {
+        return null;
+      }
+      return RouteName.login;
+    },
     routes: [
       GoRoute(path: RouteName.login,
             builder: (context, state) => SignInScreen(),
+      ),
+      GoRoute(path: RouteName.home,
+        builder: (context, state) => HomePageScreen(),
       ),
     ]
 );

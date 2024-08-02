@@ -5,7 +5,7 @@ class LoginSuccessDto{
   LoginSuccessDto({required this.accsessToken, required this.refreshToken});
 
   LoginSuccessDto.fromJson(Map<String, dynamic> json){
-    accsessToken = json['accsessToken'];
+    accsessToken = json['accessToken'];
     refreshToken = json['refreshToken'];
   }
 }
