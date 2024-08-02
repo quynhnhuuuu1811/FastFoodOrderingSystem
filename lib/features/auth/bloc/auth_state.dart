@@ -4,9 +4,10 @@ enum AuthStatus { initial,loading, success, failed }
 
 final class AuthState {
   late final AuthStatus status;
-
+  late final String? message;
   AuthState({
     this.status = AuthStatus.initial,
+   this.message,
   });
 
   AuthState copyWith({
@@ -18,6 +19,7 @@ final class AuthState {
     String? errorMsg,
   }) {
     return AuthState(
+      message: errorMsg ?? this.message,
       status: status ?? this.status,
     );
   }

@@ -1,6 +1,7 @@
 
 import 'package:fastfood_ordering_system/features/auth/data/auth_api_client.dart';
 import 'dart:developer';
+import '../../result_type.dart';
 import '../dtos/login_dto.dart';
 import 'auth_local_data_source.dart';
 
@@ -13,7 +14,7 @@ class AuthRepository{
     required this.authLocalDataSource
   });
 
-  Future<bool> login({
+  Future<Result<bool>> login({
     required String phoneNumber,
     required String password
   }) async {
@@ -22,11 +23,13 @@ class AuthRepository{
           phoneNumber: phoneNumber,
           password: password
       ));
+
       await authLocalDataSource.saveToken(loginSuccessDto.accsessToken, loginSuccessDto.refreshToken);
-      return true;
+      return Success(true);
     } catch (e) {
-     log('Error: $e');
-      return false;
+     log('Error AuthRepo: $e');
+      return Failed(e.toString());
     }
+
   }
 }
