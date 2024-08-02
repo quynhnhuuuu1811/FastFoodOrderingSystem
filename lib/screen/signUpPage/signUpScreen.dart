@@ -1,5 +1,5 @@
 import 'package:fastfood_ordering_system/core/constant/app_color.dart';
-import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.dart';
+import 'package:fastfood_ordering_system/screen/homepage/HomePageScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
