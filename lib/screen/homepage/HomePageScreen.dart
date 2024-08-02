@@ -119,6 +119,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     return FeaturesInHomePage(
                       picturePath: feature['picturePath']!,
                       text: feature['text']!,
+                      onTap: (){},
                     );
                   }).toList(),
                 ),

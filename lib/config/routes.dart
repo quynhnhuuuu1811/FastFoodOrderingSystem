@@ -1,8 +1,9 @@
-import 'package:fastfood_ordering_system/screen/homepage/widgets/HomePageScreen.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
+import '../screen/homepage/HomePageScreen.dart';
 import '../screen/signInPage/signInScreen.dart';
 
 class RouteName{
