@@ -1,12 +1,10 @@
-import 'package:fastfood_ordering_system/screen/cartpage/widgets/CartScreen.dart';
+import 'package:fastfood_ordering_system/screen/widget/ItemofGridView.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../core/constant/app_color.dart';
+import '../cartpage/widgets/CartScreen.dart';
 import '../widget/CustomeIconButton.dart';
-import 'widgets/features.dart';
-
+import '../categoryPage/CategoryScreen.dart';
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
@@ -21,11 +19,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
     'assets/images/poster3.png',
   ];
 
-  final List<Map<String, String>> featureList = [
-    {'picturePath': 'assets/images/favorite.jpg', 'text': 'Yêu thích'},
-    {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng'},
-    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng'},
-    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy'},
+  final List<Map<String, dynamic>> featureList = [
+    {'picturePath': 'assets/images/favorite.jpg', 'text': 'Yêu thích', 'route': CategoryScreen()},
+    {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng', 'route': CategoryScreen()},
+    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': CategoryScreen()},
+    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': CategoryScreen()},
   ];
 
   @override
@@ -82,6 +80,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 height: 270,
                 width: double.infinity,
                 child: Swiper(
+                  autoplay: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Image.asset(
                       imgList[index],
@@ -94,12 +93,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           activeColor: AppColors.yellowColor,
                           color: Colors.white,
                           size: 10,
-                          activeSize: 12
+                          activeSize: 12,
                       )
                   ),
                   control: const SwiperControl(
                       color: Colors.black,
-                      disableColor: Colors.red
+                      disableColor: Colors.red,
+
                   ),
                 ),
               ),
@@ -110,16 +110,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
               Container(
                 height: 300,
                 child: GridView.count(
-                  crossAxisCount: 2, // Số cột trong GridView
-                  childAspectRatio: 3 / 2, // Tỉ lệ chiều rộng/chiều cao của mỗi phần tử
+                  crossAxisCount: 2,
+                  childAspectRatio: 3 / 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   padding: const EdgeInsets.all(10),
                   children: featureList.map((feature) {
-                    return FeaturesInHomePage(
+                    return ItemofGridView(
                       picturePath: feature['picturePath']!,
                       text: feature['text']!,
-                      onTap: (){},
+                      height:80,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => feature['route']),
+                        );
+                      },
                     );
                   }).toList(),
                 ),
@@ -131,4 +137,3 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 }
-

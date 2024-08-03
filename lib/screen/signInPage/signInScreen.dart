@@ -1,5 +1,6 @@
 import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:fastfood_ordering_system/core/constant/app_color.dart';
+import 'package:fastfood_ordering_system/screen/homepage/HomePageScreen.dart';
 import 'package:fastfood_ordering_system/screen/signInPage/widgets/Register.dart';
 import 'package:fastfood_ordering_system/screen/widget/TextField.dart';
 import 'package:fastfood_ordering_system/utils/validate.dart';
@@ -30,14 +31,15 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _handleSignIn(BuildContext context) {
-    if(_formKey.currentState!.validate()){
-      context.read<AuthBloc>().add(
-        AuthLoginStarted(
-          phoneController.text,
-          passwordController.text,
-        ),
-      );
-    }
+    // if(_formKey.currentState!.validate()){
+    //   context.read<AuthBloc>().add(
+    //     AuthLoginStarted(
+    //       phoneController.text,
+    //       passwordController.text,
+    //     ),
+    //   );
+    // }
+    Navigator.push(context,MaterialPageRoute(builder: (context) => HomePageScreen()));
       }
   @override
   Widget build(BuildContext context) {

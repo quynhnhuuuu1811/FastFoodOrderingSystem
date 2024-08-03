@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FeaturesInHomePage extends StatelessWidget {
+class ItemofGridView extends StatelessWidget {
   final String picturePath;
   final String text;
   final VoidCallback onTap;
-  const FeaturesInHomePage({
+  final double height;
+  ItemofGridView({
     super.key,
     required this.picturePath,
     required this.text,
-    required this.onTap
+    required this.onTap,
+    required this.height
   });
 
   @override
@@ -31,7 +33,7 @@ class FeaturesInHomePage extends StatelessWidget {
             children: [
               Image.asset(
                 picturePath,
-                height: 80,
+                height: height,
               ),
               Text(
                 text,
