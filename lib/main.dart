@@ -1,5 +1,4 @@
 import 'package:fastfood_ordering_system/config/http_client.dart';
-import 'package:fastfood_ordering_system/screen/introPage/IntroScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

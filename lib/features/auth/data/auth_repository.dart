@@ -3,6 +3,7 @@ import 'package:fastfood_ordering_system/features/auth/data/auth_api_client.dart
 import 'dart:developer';
 import '../../result_type.dart';
 import '../dtos/login_dto.dart';
+import '../dtos/register_dto.dart';
 import 'auth_local_data_source.dart';
 
 class AuthRepository{
@@ -27,9 +28,28 @@ class AuthRepository{
       await authLocalDataSource.saveToken(loginSuccessDto.accsessToken, loginSuccessDto.refreshToken);
       return Success(true);
     } catch (e) {
-     log('Error AuthRepo: $e');
-      return Failed(e.toString());
+      final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
+      log('Error AuthRepo: $errorMessage');
+      return Failed(errorMessage);
     }
+  }
 
+  Future<Result<bool>> register({
+    required String phoneNumber,
+    required String password,
+    required String name
+}) async{
+    try{
+       await authApiClient.register(RegisterDto(
+          phoneNumber: phoneNumber,
+          password: password,
+          name: name
+      ));
+      return Success(true);
+    } catch(e){
+      final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
+      log('Error AuthRepo: $errorMessage');
+      return Failed(errorMessage);
+    }
   }
 }

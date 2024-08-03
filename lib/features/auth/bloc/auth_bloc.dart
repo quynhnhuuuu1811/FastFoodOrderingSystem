@@ -17,6 +17,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository ;
   void _onAuthRegisterStarted(AuthRegisterStarted event, Emitter<AuthState> emit) async {
     emit(state.copyWith(status: AuthStatus.loading));
+    final result=await _authRepository.register(phoneNumber: event.phoneNumber, password: event.password, name: event.name);
+    return (
+        switch(result){
+      Success() => emit(state.copyWith(status: AuthStatus.success)),
+      Failed() => emit(state.copyWith(status: AuthStatus.failed,errorMsg: result.message))
+    });
 
   }
   void _onStarted(AuthStarted event, Emitter<AuthState> emit) async {
@@ -29,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return (
         switch(result){
       Success() => emit(state.copyWith(status: AuthStatus.success)),
-      Failed() => emit(state.copyWith(status: AuthStatus.failed))
+      Failed() => emit(state.copyWith(status: AuthStatus.failed, errorMsg: result.message))
     });
   }
 }

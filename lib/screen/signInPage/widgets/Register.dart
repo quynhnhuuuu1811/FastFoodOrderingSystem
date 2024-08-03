@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../config/routes.dart';
 import '../../signUpPage/signUpScreen.dart';
 import '../../widget/TextButtons.dart';
 
@@ -22,7 +24,7 @@ class Register extends StatelessWidget {
           textColor: Colors.black,
           textSize: 18,
           onpressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+            context.go(RouteName.register);
           },
         )
       ],

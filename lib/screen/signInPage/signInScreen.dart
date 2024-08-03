@@ -31,15 +31,15 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _handleSignIn(BuildContext context) {
-    // if(_formKey.currentState!.validate()){
-    //   context.read<AuthBloc>().add(
-    //     AuthLoginStarted(
-    //       phoneController.text,
-    //       passwordController.text,
-    //     ),
-    //   );
-    // }
-    Navigator.push(context,MaterialPageRoute(builder: (context) => HomePageScreen()));
+    if(_formKey.currentState!.validate()){
+      context.read<AuthBloc>().add(
+        AuthLoginStarted(
+          phoneController.text,
+          passwordController.text,
+        ),
+      );
+    }
+    // Navigator.push(context,MaterialPageRoute(builder: (context) => HomePageScreen()));
       }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,6 @@ class _SignInScreenState extends State<SignInScreen> {
     });
     loginWidget=BlocListener<AuthBloc,AuthState>(
       listener: (context,state){
-        print(state.status);
         switch(state.status){
           case AuthStatus.success:
             context.go(RouteName.home);
@@ -62,7 +61,6 @@ class _SignInScreenState extends State<SignInScreen> {
           case AuthStatus.initial:
             break;
           case AuthStatus.loading:
-
         }
       },
       child: loginWidget,
