@@ -44,30 +44,28 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthBloc>().state;
-    var loginWidget=(switch(authState.status){
-      AuthStatus.initial=>  _buildInitialize(context),
-      AuthStatus.loading=>   _buildInLoading(),
-      AuthStatus.success=> Container(),
-      AuthStatus.failed=> _buildFailured(authState.message, context),
-    });
-    loginWidget=BlocListener<AuthBloc,AuthState>(
-      listener: (context,state){
-        switch(state.status){
-          case AuthStatus.success:
-            context.go(RouteName.home);
-            break;
-            case AuthStatus.failed:
-            break;
-          case AuthStatus.initial:
-            break;
-          case AuthStatus.loading:
-        }
-      },
-      child: loginWidget,
-    );
+    Widget loginWidget;
+    if (authState.status == AuthStatus.initial) {
+      loginWidget = _buildInitialize(context);
+    } else if (authState.status == AuthStatus.loading) {
+      loginWidget = _buildInLoading();
+    } else if (authState.status == AuthStatus.success) {
+      loginWidget= Container();
+    } else {
+      loginWidget = _buildFailured(authState.message, context);
+    }
     return Scaffold(
       backgroundColor: Colors.white,
-      body: loginWidget
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state.status == AuthStatus.success) {
+           context.go(RouteName.home);
+          } else if (state.status == AuthStatus.failed) {
+            // Handle failure case, e.g., show a snackbar
+          }
+        },
+        child: loginWidget,
+      ),
     );
   }
 

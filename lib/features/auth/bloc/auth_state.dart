@@ -1,6 +1,6 @@
 part of 'auth_bloc.dart';
 
-enum AuthStatus { initial,loading, success, failed }
+enum AuthStatus { initial,loading, success, failed  }
 
 final class AuthState {
   late final AuthStatus status;

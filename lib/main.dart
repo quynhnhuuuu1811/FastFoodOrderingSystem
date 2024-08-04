@@ -1,4 +1,5 @@
 import 'package:fastfood_ordering_system/config/http_client.dart';
+import 'package:fastfood_ordering_system/features/auth/data/network/auth_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,9 +20,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.sf}) : super(key: key);
   final SharedPreferences sf;
-
   @override
   Widget build(BuildContext context) {
+    dio.interceptors.add(AuthInterceptor(dio, sf));
     return RepositoryProvider(
       create: (context) => AuthRepository(
         authApiClient: AuthApiClient(dio),

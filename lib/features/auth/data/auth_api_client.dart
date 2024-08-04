@@ -2,10 +2,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:fastfood_ordering_system/features/auth/dtos/login_dto.dart';
 import 'package:fastfood_ordering_system/features/auth/dtos/login_success_dto.dart';
+import 'package:fastfood_ordering_system/features/auth/dtos/refreshToken_succuess_dto.dart';
 import 'package:fastfood_ordering_system/features/auth/dtos/register_dto.dart';
 
+
+
 class AuthApiClient {
-  final Dio dio;
+  late final Dio dio;
 
   AuthApiClient(this.dio);
 
@@ -59,4 +62,6 @@ class AuthApiClient {
       throw Exception('Unknown error occurred');
     }
   }
+
+
 }

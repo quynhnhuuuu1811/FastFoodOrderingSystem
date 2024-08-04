@@ -1,11 +1,11 @@
 class LoginSuccessDto{
-  late final String accsessToken;
+  late final String accessToken;
   late final String refreshToken;
-
-  LoginSuccessDto({required this.accsessToken, required this.refreshToken});
+  late final String expriedTime;
+  LoginSuccessDto({required this.accessToken, required this.refreshToken});
 
   LoginSuccessDto.fromJson(Map<String, dynamic> json){
-    accsessToken = json['accessToken'];
+    accessToken = json['accessToken'];
     refreshToken = json['refreshToken'];
   }
 }

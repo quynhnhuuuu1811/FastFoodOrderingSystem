@@ -25,7 +25,7 @@ class AuthRepository{
           password: password
       ));
 
-      await authLocalDataSource.saveToken(loginSuccessDto.accsessToken, loginSuccessDto.refreshToken);
+      await authLocalDataSource.saveToken(loginSuccessDto.accessToken, loginSuccessDto.refreshToken);
       return Success(true);
     } catch (e) {
       final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
@@ -52,4 +52,16 @@ class AuthRepository{
       return Failed(errorMessage);
     }
   }
+
+  Future<Result<bool>> logout() async {
+    try {
+      await authLocalDataSource.deleteToken();
+      return Success(true);
+    } catch (e) {
+      final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
+      log('Error AuthRepo: $errorMessage');
+      return Failed(errorMessage);
+    }
+  }
+
 }
