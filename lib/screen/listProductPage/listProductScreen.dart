@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import '../../core/constant/app_color.dart';
+import '../ProductDetailPage/ProductDetailScreen.dart';
 import '../widget/ProductItem.dart';
 
 class listProductScreen extends StatefulWidget {
   const listProductScreen({super.key});
 
   @override
-  State<listProductScreen> createState() => _ListProductScreenState();
+  State<listProductScreen> createState() => _listProductScreenState();
 }
 
-class _ListProductScreenState extends State<listProductScreen> {
+class _listProductScreenState extends State<listProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,19 +21,15 @@ class _ListProductScreenState extends State<listProductScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Row(
-          children: [
-            Text(
-              'Category name',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Shopee_Bold',
-              ),
-            ),
-          ],
+        title: const Text(
+          'Category name',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Shopee_Bold',
+          ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0),
+          preferredSize: const Size.fromHeight(2.0),
           child: Container(
             color: AppColors.grayColor,
             height: 1.5,
@@ -39,11 +37,32 @@ class _ListProductScreenState extends State<listProductScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: GridView.count(
           crossAxisCount: 2,
-          children: const [
-            ProductItem(),
+          crossAxisSpacing: 20,
+          children: [
+            ProductItem(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProductDetailScreen(),
+                  ),
+                );
+              },
+            ),
+            ProductItem(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProductDetailScreen(),
+                  ),
+                );
+              },
+            ),
+            // Add more ProductItem widgets as needed
           ],
         ),
       ),
