@@ -19,4 +19,9 @@ class AuthLocalDataSource{
   Future<String?> getRefreshToken() async {
     return await sf.getString(AuthDataConstants.refreshToken);
   }
+
+  Future<void> deleteToken() async {
+    await sf.remove(AuthDataConstants.accessToken);
+    await sf.remove(AuthDataConstants.refreshToken);
+  }
 }
