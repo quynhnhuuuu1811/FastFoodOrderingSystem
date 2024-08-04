@@ -10,4 +10,5 @@ class RegisterDto{
     'password': password,
     'name': name
   };
+
 }
