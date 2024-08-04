@@ -25,7 +25,7 @@ class AuthRepository{
           password: password
       ));
 
-      await authLocalDataSource.saveToken(loginSuccessDto.accsessToken, loginSuccessDto.refreshToken);
+      await authLocalDataSource.saveToken(loginSuccessDto.accessToken, loginSuccessDto.refreshToken);
       return Success(true);
     } catch (e) {
       final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
@@ -38,9 +38,9 @@ class AuthRepository{
     required String phoneNumber,
     required String password,
     required String name
-}) async{
+  }) async{
     try{
-       await authApiClient.register(RegisterDto(
+      await authApiClient.register(RegisterDto(
           phoneNumber: phoneNumber,
           password: password,
           name: name
@@ -52,4 +52,16 @@ class AuthRepository{
       return Failed(errorMessage);
     }
   }
+
+  Future<Result<bool>> logout() async {
+    try {
+      await authLocalDataSource.deleteToken();
+      return Success(true);
+    } catch (e) {
+      final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
+      log('Error AuthRepo: $errorMessage');
+      return Failed(errorMessage);
+    }
+  }
+
 }
