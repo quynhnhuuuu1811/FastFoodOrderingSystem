@@ -1,4 +1,6 @@
+import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/constant/app_color.dart';
 import '../cartpage/CartScreen.dart';
 import '../homepage/HomePageScreen.dart';
@@ -15,12 +17,12 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   final List<Map<String, dynamic>> categoryList = [
-    {'picturePath': 'assets/images/logo/burger.png', 'text': 'Burger', 'route': listProductScreen()},
-    {'picturePath': 'assets/images/logo/fried_chicken.png', 'text': 'Gà rán', 'route': listProductScreen()},
-    {'picturePath': 'assets/images/logo/drinks.png', 'text': 'Nước uống', 'route': listProductScreen()},
-    {'picturePath': 'assets/images/logo/fried_potatoes.png', 'text': 'Khoai tây chiên', 'route': listProductScreen()},
-    {'picturePath': 'assets/images/logo/hotdog.png', 'text': 'Hotdog', 'route': listProductScreen()},
-    {'picturePath': 'assets/images/logo/pasta.png', 'text': 'Mỳ ý ', 'route': listProductScreen()},
+    {'picturePath': 'assets/images/logo/burger.png', 'text': 'Burger', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/fried_chicken.png', 'text': 'Gà rán', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/drinks.png', 'text': 'Nước uống', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/fried_potatoes.png', 'text': 'Khoai tây chiên', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/hotdog.png', 'text': 'Hotdog', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/pasta.png', 'text': 'Mỳ ý ', 'route': RouteName.listProduct},
   ];
 
   @override
@@ -45,10 +47,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePageScreen()),
-            );
+            context.go(RouteName.home);
           },
         ),
         actions: [
@@ -56,15 +55,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
             icon: Icons.shopping_cart,
             color: Colors.black,
             onpressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartScreen()),
-              );
+              context.go(RouteName.cart);
             },
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0),
+          preferredSize: const Size.fromHeight(2.0),
           child: Container(
             color: AppColors.grayColor,
             height: 1.5,
@@ -72,7 +68,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
       ),
       body: Padding (
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: GridView.count(
           crossAxisCount: 2,
           mainAxisSpacing: 10,
@@ -84,10 +80,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               text: feature['text']!,
               height:120,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => feature['route']),
-                );
+                context.go(feature['route']!);
               },
             );
           }).toList(),
