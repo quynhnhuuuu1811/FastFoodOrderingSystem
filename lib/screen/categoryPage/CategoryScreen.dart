@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/constant/app_color.dart';
-import '../cartpage/widgets/CartScreen.dart';
+import '../cartpage/CartScreen.dart';
 import '../homepage/HomePageScreen.dart';
 import '../listProductPage/listProductScreen.dart';
 import '../widget/CustomeIconButton.dart';

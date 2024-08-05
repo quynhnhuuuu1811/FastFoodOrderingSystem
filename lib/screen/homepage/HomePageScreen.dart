@@ -2,7 +2,7 @@ import 'package:fastfood_ordering_system/screen/widget/ItemofGridView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../core/constant/app_color.dart';
-import '../cartpage/widgets/CartScreen.dart';
+import '../cartpage/CartScreen.dart';
 import '../widget/CustomeIconButton.dart';
 import '../categoryPage/CategoryScreen.dart';
 class HomePageScreen extends StatefulWidget {
@@ -31,6 +31,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          toolbarHeight: 80,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           elevation: 0,

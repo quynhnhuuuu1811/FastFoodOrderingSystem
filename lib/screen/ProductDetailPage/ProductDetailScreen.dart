@@ -1,9 +1,8 @@
+import 'package:fastfood_ordering_system/screen/ProductDetailPage/widgets/CustomeBottomAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import '../../core/constant/app_color.dart';
-import '../widget/IconInContainer.dart';
-import '../widget/ProductItem.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key});
@@ -53,71 +52,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.grayColor,
-        height: 120,
-        child: Row(
-          children:[
-            IconInContainer(
-              icon:Icons.add,
-              color: Colors.white,
-              colorIcon: Colors.black,
-            ),
-
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 2),
-              ),
-              child: Center(
-                child: TextField(
-                  controller: _amountController,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-            IconInContainer(
-              icon:Icons.remove,
-              color: Colors.white,
-              colorIcon: Colors.black,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Column(
-                children: [
-                  const Text(
-                    'Tổng cộng: 123000 VND',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 21
-                      )
-                    ),
-                  const SizedBox(height: 5),
-                  ElevatedButton(
-                      onPressed:(){},
-                      child: const Text('Thêm vào giỏ hàng',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black
-                        ),
-                      ))
-
-                ],
-              ),
-            )
-          ]
-        )
-      ),
+      bottomNavigationBar: CustomeBottomAppBar(amountController: _amountController),
     );
   }
 }
+

@@ -67,6 +67,8 @@ class ProductItem extends StatelessWidget {
                   icon: Icons.add,
                   color: Colors.black,
                   colorIcon: Colors.white,
+                  containerSize: 40,
+                  iconSize: 20,
                 ),
 
               ],
