@@ -1,10 +1,13 @@
 
+import 'package:fastfood_ordering_system/screen/categoryPage/CategoryScreen.dart';
 import 'package:fastfood_ordering_system/screen/introPage/IntroScreen.dart';
+import 'package:fastfood_ordering_system/screen/listProductPage/listProductScreen.dart';
 import 'package:fastfood_ordering_system/screen/signUpPage/signUpScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
+import '../screen/cartpage/CartScreen.dart';
 import '../screen/homepage/HomePageScreen.dart';
 import '../screen/signInPage/signInScreen.dart';
 
@@ -13,6 +16,9 @@ class RouteName{
   static const String login = '/login';
   static const String register = '/register';
   static const String intro = '/intro';
+  static const String category = '/category';
+  static const String cart = '/cart';
+  static const String listProduct='/listProduct';
   static const publicRoutes = [
     login,
     register,
@@ -42,6 +48,15 @@ final router =GoRouter(
       ),
       GoRoute(path: RouteName.register,
         builder: (context, state) => const SignUpScreen()
+      ),
+      GoRoute(path: RouteName.category,
+          builder: (context, state) => const CategoryScreen()
+      ),
+      GoRoute(path: RouteName.cart,
+          builder: (context, state) => const CartScreen()
+      ),
+      GoRoute(path: RouteName.listProduct,
+          builder: (context, state) => const listProductScreen()
       ),
     ]
 );

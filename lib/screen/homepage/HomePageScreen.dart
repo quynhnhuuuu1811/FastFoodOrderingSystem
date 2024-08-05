@@ -1,6 +1,8 @@
+import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:fastfood_ordering_system/screen/widget/ItemofGridView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/constant/app_color.dart';
 import '../cartpage/CartScreen.dart';
 import '../widget/CustomeIconButton.dart';
@@ -20,10 +22,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
   ];
 
   final List<Map<String, dynamic>> featureList = [
-    {'picturePath': 'assets/images/favorite.jpg', 'text': 'Yêu thích', 'route': CategoryScreen()},
-    {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng', 'route': CategoryScreen()},
-    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': CategoryScreen()},
-    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': CategoryScreen()},
+    {'picturePath': 'assets/images/favorite.jpg', 'text': 'Yêu thích', 'route': RouteName.category},
+    {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng', 'route': RouteName.category},
+    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': RouteName.category},
+    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': RouteName.category},
   ];
 
   @override
@@ -77,7 +79,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     child: SingleChildScrollView(
     child: Column(
     children: [
-    Container(
+    SizedBox(
     height: 270,
     width: double.infinity,
     child: Swiper(
@@ -103,11 +105,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
     ),
     ),
-      Divider(
+      const Divider(
         color: AppColors.grayColor,
         thickness: 1.5,
       ),
-      Container(
+      SizedBox(
         height: 300,
         child: GridView.count(
           crossAxisCount: 2,
@@ -121,10 +123,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               text: feature['text']!,
               height:80,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => feature['route']),
-                );
+                context.go(feature['route']!);
               },
             );
           }).toList(),
