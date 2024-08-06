@@ -30,11 +30,38 @@ class MyApp extends StatelessWidget {
       ),
       child: BlocProvider(
         create: (context) => AuthBloc(context.read<AuthRepository>()),
-        child: MaterialApp.router(
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-        ),
+        child: AppContent(),
       ),
+    );
+  }
+}
+
+class AppContent extends StatefulWidget {
+  const AppContent({
+    super.key,
+  });
+
+  @override
+  State<AppContent> createState() => _AppContentState();
+}
+
+class _AppContentState extends State<AppContent> {
+
+  @override
+  void initState() {
+    super.initState();
+    // context.read<AuthBloc>().add(AuthAuthenticateStarted());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authState=context.watch<AuthBloc>().state;
+    if(authState.status==AuthStatus.loading){
+      return const Center(child: CircularProgressIndicator());
+    }
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

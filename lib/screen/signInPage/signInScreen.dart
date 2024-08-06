@@ -31,15 +31,15 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _handleSignIn(BuildContext context) {
-    if(_formKey.currentState!.validate()){
-      context.read<AuthBloc>().add(
-        AuthLoginStarted(
-          phoneController.text,
-          passwordController.text,
-        ),
-      );
-    }
-    // Navigator.push(context,MaterialPageRoute(builder: (context) => HomePageScreen()));
+    // if(_formKey.currentState!.validate()){
+    //   context.read<AuthBloc>().add(
+    //     AuthLoginStarted(
+    //       phoneController.text,
+    //       passwordController.text,
+    //     ),
+    //   );
+    // }
+    context.go(RouteName.home);
   }
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.success) {
+            context.read<AuthBloc>().add(AuthAuthenticateStarted());
             context.go(RouteName.home);
           } else if (state.status == AuthStatus.failed) {
             // Handle failure case, e.g., show a snackbar

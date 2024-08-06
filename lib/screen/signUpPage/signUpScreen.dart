@@ -218,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              context.read<AuthBloc>().add(AuthStarted());
+              context.go(RouteName.login);
             },
             child: const Text('OK'),
           ),

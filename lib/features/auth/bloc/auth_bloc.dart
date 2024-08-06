@@ -12,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthStarted>(_onStarted);
     on<AuthRegisterStarted>(_onAuthRegisterStarted);
     on<AuthLoginStarted>(_onAuthLoginStarted);
+    on<AuthAuthenticateStarted>(_onAuthAuthenticateStarted);
   }
 
   final AuthRepository _authRepository ;
@@ -35,6 +36,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return (
         switch(result){
       Success() => emit(state.copyWith(status: AuthStatus.success)),
+      Failed() => emit(state.copyWith(status: AuthStatus.failed, errorMsg: result.message))
+    });
+  }
+
+  void _onAuthAuthenticateStarted(AuthAuthenticateStarted event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: AuthStatus.loading));
+    final result=await _authRepository.getRefreshToken();
+    return (
+        switch(result){
+      Success() => emit(state.copyWith(status: AuthStatus.success, refreshToken: result.data)),
       Failed() => emit(state.copyWith(status: AuthStatus.failed, errorMsg: result.message))
     });
   }

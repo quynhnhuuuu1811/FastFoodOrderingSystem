@@ -64,4 +64,18 @@ class AuthRepository{
     }
   }
 
+  Future<Result<String>> getRefreshToken() async {
+    try {
+      final token = await authLocalDataSource.getRefreshToken();
+      if(token==null){
+        return Failed('Token not found');
+      }
+      return Success(token);
+    } catch (e) {
+      final errorMessage = e.toString().replaceAll(RegExp(r'Exception: '), '');
+      log('Error AuthRepo: $errorMessage');
+      return Failed(errorMessage);
+    }
+  }
+
 }
