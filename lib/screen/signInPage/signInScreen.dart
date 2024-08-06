@@ -39,7 +39,7 @@ class _SignInScreenState extends State<SignInScreen> {
     //     ),
     //   );
     // }
-    context.go(RouteName.home);
+    context.go(RouteName.home); 
   }
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,6 @@ class _SignInScreenState extends State<SignInScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.success) {
-            context.read<AuthBloc>().add(AuthAuthenticateStarted());
             context.go(RouteName.home);
           } else if (state.status == AuthStatus.failed) {
             // Handle failure case, e.g., show a snackbar

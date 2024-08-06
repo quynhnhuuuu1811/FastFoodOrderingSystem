@@ -2,9 +2,6 @@ import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constant/app_color.dart';
-import '../cartpage/CartScreen.dart';
-import '../homepage/HomePageScreen.dart';
-import '../listProductPage/listProductScreen.dart';
 import '../widget/CustomeIconButton.dart';
 import '../widget/ItemofGridView.dart';
 
@@ -23,6 +20,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     {'picturePath': 'assets/images/logo/fried_potatoes.png', 'text': 'Khoai tây chiên', 'route': RouteName.listProduct},
     {'picturePath': 'assets/images/logo/hotdog.png', 'text': 'Hotdog', 'route': RouteName.listProduct},
     {'picturePath': 'assets/images/logo/pasta.png', 'text': 'Mỳ ý ', 'route': RouteName.listProduct},
+    {'picturePath': 'assets/images/logo/pizza.png', 'text': 'Pizza', 'route': RouteName.listProduct},
   ];
 
   @override

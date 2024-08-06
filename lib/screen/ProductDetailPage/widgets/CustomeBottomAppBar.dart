@@ -20,7 +20,7 @@ class CustomeBottomAppBar extends StatelessWidget {
         child: Row(
             children:[
               IconInContainer(
-                icon:Icons.add,
+                icon:Icons.remove,
                 color: Colors.white,
                 colorIcon: Colors.black,
                 containerSize: 40,
@@ -31,7 +31,7 @@ class CustomeBottomAppBar extends StatelessWidget {
                 fontsize: 25,
                 containerSize: 40,),
               IconInContainer(
-                icon:Icons.remove,
+                icon:Icons.add,
                 color: Colors.white,
                 colorIcon: Colors.black,
                 iconSize: 20,

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import '../../config/routes.dart';
 import '../../core/constant/app_color.dart';
 import '../ProductDetailPage/ProductDetailScreen.dart';
 import '../widget/ProductItem.dart';
@@ -20,7 +22,12 @@ class _listProductScreenState extends State<listProductScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            context.go(RouteName.category);
+          },
+        ),
         title: const Text(
           'Category name',
           style: TextStyle(
