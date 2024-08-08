@@ -4,10 +4,10 @@ import 'CartItem.dart';
 
 class HasProductCartScreen extends StatefulWidget {
   const HasProductCartScreen({
-    Key? key,
+    super.key,
     required this.productNames,
     required this.amountController,
-  }) : super(key: key);
+  });
 
   final List<String> productNames;
   final TextEditingController amountController;

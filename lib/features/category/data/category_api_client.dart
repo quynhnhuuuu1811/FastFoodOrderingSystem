@@ -8,7 +8,8 @@ class CategoryApiClient{
   CategoryApiClient({required this.dio});
   Future<List<CategoryDto>> getCategories() async{
     try{
-      final response = await dio.get('/v1/categories');
+      final response = await dio.get('/v1/foodTypes');
+      print(response.data);
       return (response.data as List).map((e) => CategoryDto.fromJson(e)).toList();
    }on DioException catch (e) {
       if (e.response != null) {

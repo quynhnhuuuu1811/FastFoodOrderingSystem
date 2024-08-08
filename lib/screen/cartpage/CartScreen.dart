@@ -15,13 +15,6 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final TextEditingController _amountController = TextEditingController(text: '1');
   final List<String> _productNames = ['Sản phẩm 1', 'Sản phẩm 2', 'Sản phẩm 3'];
-  bool showDeleteButton = false;
-
-  void onCheckedChange(isChecked) {
-    setState(() {
-      showDeleteButton = isChecked;
-    });
-  }
 
   @override
   void dispose() {
@@ -45,7 +38,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0),
+          preferredSize: const Size.fromHeight(2.0),
           child: Container(
             color: AppColors.grayColor,
             height: 1.5,

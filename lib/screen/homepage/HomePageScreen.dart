@@ -59,15 +59,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
               icon: Icons.shopping_cart,
               color: Colors.black,
               onpressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
-                );
+                context.push(RouteName.cart);
               },
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(2.0),
+            preferredSize: const Size.fromHeight(2.0),
             child: Container(
               color: AppColors.grayColor,
               height: 1.5,
@@ -123,7 +120,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               text: feature['text']!,
               height:80,
               onTap: () {
-                context.go(feature['route']!);
+                context.push(feature['route']!);
               },
             );
           }).toList(),

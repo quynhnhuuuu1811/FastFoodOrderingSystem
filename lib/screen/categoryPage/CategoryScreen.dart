@@ -45,7 +45,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.home);
+            context.pop();
           },
         ),
         actions: [
