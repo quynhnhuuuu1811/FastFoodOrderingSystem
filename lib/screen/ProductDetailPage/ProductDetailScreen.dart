@@ -41,40 +41,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             height: 250,
             fit: BoxFit.fitHeight,
           ),
-          Divider(color: AppColors.grayColor, thickness: 2),
-          Padding(
-            padding: EdgeInsets.only(top:20,left: 20),
+          const Divider(color: AppColors.grayColor, thickness: 2),
+          const Padding(
+            padding: EdgeInsets.only(top:20),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tên sản phẩm',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'Shopee_Bold',
-                      ),
-                    ),
-                    SizedBox(height:10),
-                    Text(
-                      '123000 VND',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Shopee_Medium',
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Tên sản phẩm',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'Shopee_Bold',
+                  ),
                 ),
-                SizedBox(width: 150),
-                IconButton(
-                  onPressed: _toggleFavorite,
-                  icon: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.black,
-                    size: isFavorite? 40 : 40
+                SizedBox(height:10),
+                Text(
+                  '123000 VND',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontFamily: 'Shopee_Medium',
                   ),
                 ),
               ],
