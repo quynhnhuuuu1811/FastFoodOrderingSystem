@@ -7,8 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
+import '../screen/EditAccountInformationPage/EditAccountInformationScreen.dart';
+import '../screen/accountPage/AccountScreen.dart';
 import '../screen/cartpage/CartScreen.dart';
+import '../screen/editPasswordPage/EditPasswordScreen.dart';
 import '../screen/homepage/HomePageScreen.dart';
+import '../screen/orderHistoryPage/OrderHistoryScreen.dart';
 import '../screen/signInPage/signInScreen.dart';
 
 class RouteName{
@@ -19,6 +23,11 @@ class RouteName{
   static const String category = '/category';
   static const String cart = '/cart';
   static const String listProduct='/listProduct';
+  static const String orderHistory = '/OrderHistory';
+  static const String account = '/account';
+  static const String editPassword = '/EditPassword';
+  static const String editAccountInformation = '/editAccountInformation';
+
   static const publicRoutes = [
     login,
     register,
@@ -58,5 +67,20 @@ final router =GoRouter(
       GoRoute(path: RouteName.listProduct,
           builder: (context, state) => const listProductScreen()
       ),
+      GoRoute(path: RouteName.orderHistory,
+          builder: (context, state) => const OrderHistoryScreen()
+      ),
+      GoRoute(path: RouteName.account,
+          builder: (context, state) => const AccountScreen()
+      ),
+      GoRoute(path: RouteName.editPassword,
+          builder: (context, state) => const EditPasswordScreen()
+      ),
+
+      GoRoute(path: RouteName.editAccountInformation,
+          builder: (context, state) => const EditAccountInformationScreen()
+      ),
+
+
     ]
 );

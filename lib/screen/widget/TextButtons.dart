@@ -20,7 +20,7 @@ class TextButtons extends StatelessWidget {
         child:Text(text,
             style: TextStyle(
                 color:textColor,
-                fontSize: 18,
+                fontSize: textSize,
                 decoration: TextDecoration.underline,
                 decorationColor:textColor,
                 decorationThickness: 2

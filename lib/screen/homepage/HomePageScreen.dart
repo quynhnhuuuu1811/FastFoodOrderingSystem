@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/constant/app_color.dart';
 import '../cartpage/CartScreen.dart';
 import '../widget/CustomeIconButton.dart';
-import '../categoryPage/CategoryScreen.dart';
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
@@ -22,9 +21,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
   ];
 
   final List<Map<String, dynamic>> featureList = [
-    {'picturePath': 'assets/images/favorite.jpg', 'text': 'Yêu thích', 'route': RouteName.category},
+    {'picturePath': 'assets/images/account.jpg', 'text': 'Tài khoản', 'route': RouteName.account},
     {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng', 'route': RouteName.category},
-    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': RouteName.category},
+    {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': RouteName.orderHistory},
     {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': RouteName.category},
   ];
 
