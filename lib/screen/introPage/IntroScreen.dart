@@ -1,5 +1,6 @@
-import 'package:fastfood_ordering_system/core/constant/app_color.dart';
+import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:math';
 
 import '../signInPage/signInScreen.dart';
@@ -39,7 +40,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     textColor: Colors.black,
                     iconColor: Colors.black,
                     onpressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                      context.go(RouteName.login);
                     },
                     font: 'Anton',
                     fontSize:30,

@@ -1,7 +1,6 @@
-import 'dart:ffi';
 
 class CategoryDto{
-  late final Int id;
+  late final int id;
   late final String name;
   late final String image;
 
@@ -12,6 +11,5 @@ class CategoryDto{
     name = json['name'];
     image = json['image'];
   }
-
 
 }
