@@ -30,23 +30,25 @@ class RoundedButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         backgroundColor: buttonColor,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            buttonText,
-            style: TextStyle(
-              fontSize: fontSize,
-              color: textColor,
-              fontFamily: font,
+      child: Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              buttonText,
+              style: TextStyle(
+                fontSize: fontSize,
+                color: textColor,
+                fontFamily: font,
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          if (icon != null) ...[ // Kiểm tra xem icon có được cung cấp không
             const SizedBox(width: 8),
-            icon!,
+            if (icon != null) ...[ // Kiểm tra xem icon có được cung cấp không
+              const SizedBox(width: 8),
+              icon!,
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

@@ -24,7 +24,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     {'picturePath': 'assets/images/account.jpg', 'text': 'Tài khoản', 'route': RouteName.account},
     {'picturePath': 'assets/images/order.jpg', 'text': 'Đặt hàng', 'route': RouteName.category},
     {'picturePath': 'assets/images/invoice.jpg', 'text': 'Lịch sử mua hàng', 'route': RouteName.orderHistory},
-    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': RouteName.category},
+    {'picturePath': 'assets/images/best_seller.jpg', 'text': 'Bán chạy', 'route': RouteName.bestSeller},
   ];
 
   @override

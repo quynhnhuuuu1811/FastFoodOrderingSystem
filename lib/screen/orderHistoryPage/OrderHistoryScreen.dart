@@ -62,7 +62,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         padding: EdgeInsets.all(10),
         child: Column (
           children: [
-            ItemInOrderList()
+            ItemInOrderHistoryList()
           ]
         ),
       )

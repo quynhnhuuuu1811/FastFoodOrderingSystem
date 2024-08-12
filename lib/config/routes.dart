@@ -8,10 +8,13 @@ import 'package:go_router/go_router.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
 import '../screen/EditAccountInformationPage/EditAccountInformationScreen.dart';
+import '../screen/OrderPage/OrderScreen.dart';
 import '../screen/accountPage/AccountScreen.dart';
+import '../screen/bestSellerPage/BestSellerScreen.dart';
 import '../screen/cartpage/CartScreen.dart';
 import '../screen/editPasswordPage/EditPasswordScreen.dart';
 import '../screen/homepage/HomePageScreen.dart';
+import '../screen/orderDetailPage/OrderDetailScreen.dart';
 import '../screen/orderHistoryPage/OrderHistoryScreen.dart';
 import '../screen/signInPage/signInScreen.dart';
 
@@ -27,6 +30,9 @@ class RouteName{
   static const String account = '/account';
   static const String editPassword = '/EditPassword';
   static const String editAccountInformation = '/editAccountInformation';
+  static const String orderDetail = '/OrderDetail';
+  static const String order = '/order';
+  static const String bestSeller = '/bestSeller';
 
   static const publicRoutes = [
     login,
@@ -81,6 +87,15 @@ final router =GoRouter(
           builder: (context, state) => const EditAccountInformationScreen()
       ),
 
+      GoRoute(path:RouteName.orderDetail,
+          builder: (context,state) => const OrderDetailScreen()
+      ),
 
+      GoRoute(path:RouteName.order,
+          builder: (context,state) => const OrderScreen()
+      ),
+
+      GoRoute(path:RouteName.bestSeller,
+          builder: (context,state) => const BestSellerScreen()),
     ]
 );

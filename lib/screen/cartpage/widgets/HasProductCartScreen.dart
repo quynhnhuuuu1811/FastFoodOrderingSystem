@@ -1,5 +1,8 @@
+import 'package:fastfood_ordering_system/screen/widget/RoundedButton.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../config/routes.dart';
 import 'CartItem.dart';
 
 class HasProductCartScreen extends StatefulWidget {
@@ -31,7 +34,7 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
     });
   }
 
-  bool get _showDeleteButton {
+  bool get _showBottomButton {
     return _checkedStates.contains(true);
   }
 
@@ -55,24 +58,36 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _showDeleteButton
+      bottomNavigationBar: _showBottomButton
           ? BottomAppBar(
-        color: Colors.black,
+        color: Colors.white,
         height: 100,
-        child: Container(
-          color: Colors.black
-          ,
-          height: 50,
-          child: Center(
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Delete',
-                style: TextStyle(
-                    color: Colors.white,
-                fontSize: 22),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10,20,10,10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RoundedButton(
+                buttonText: 'Xóa',
+                fontSize: 25,
+                buttonColor: Colors.black,
+                textColor: Colors.white,
+                font: 'Shopee_Bold',
+                onpressed: () {
+
+                },
               ),
-            ),
+              RoundedButton(
+                buttonText: 'Thanh toán',
+                fontSize: 25,
+                buttonColor: Colors.black,
+                textColor: Colors.white,
+                font: 'Shopee_Bold',
+                onpressed: () {
+                  context.go(RouteName.order);
+                },
+              ),
+            ]
           ),
         ),
       )

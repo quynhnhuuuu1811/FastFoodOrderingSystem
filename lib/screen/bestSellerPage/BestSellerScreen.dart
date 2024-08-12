@@ -1,21 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fastfood_ordering_system/screen/bestSellerPage/widgets/BestSellerItem.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/routes.dart';
 import '../../core/constant/app_color.dart';
 import '../ProductDetailPage/ProductDetailScreen.dart';
 import '../widget/ProductItem.dart';
 
-class listProductScreen extends StatefulWidget {
-  const listProductScreen({super.key});
+class BestSellerScreen extends StatefulWidget {
+  const BestSellerScreen({super.key});
 
   @override
-  State<listProductScreen> createState() => _listProductScreenState();
+  State<BestSellerScreen> createState() => _BestSellerScreenState();
 }
 
-class _listProductScreenState extends State<listProductScreen> {
+class _BestSellerScreenState extends State<BestSellerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,7 @@ class _listProductScreenState extends State<listProductScreen> {
           },
         ),
         title: const Text(
-          'Category name',
+          'Món ngon bán chạy',
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Shopee_Bold',
@@ -47,18 +45,9 @@ class _listProductScreenState extends State<listProductScreen> {
         padding: const EdgeInsets.all(10),
         child: GridView.count(
           crossAxisCount: 2,
-          crossAxisSpacing: 20,
+          crossAxisSpacing: 10,
           children: [
-            ProductItem(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProductDetailScreen(),
-                  ),
-                );
-              },
-            ),
+            BestSellerItem(),
           ],
         ),
       ),

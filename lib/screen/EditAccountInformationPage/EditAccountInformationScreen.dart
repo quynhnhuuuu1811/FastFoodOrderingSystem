@@ -18,13 +18,6 @@ class _EditAccountInformationScreenState extends State<EditAccountInformationScr
   TextEditingController _phoneController = TextEditingController(text: "0123123123");
 
   @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

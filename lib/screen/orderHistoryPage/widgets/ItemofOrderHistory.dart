@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class ItemofOrder extends StatelessWidget {
-  ItemofOrder({
+class ItemofOrderHistory extends StatelessWidget {
+  ItemofOrderHistory({
     super.key,
     required this.title,
     required this.content
