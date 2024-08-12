@@ -1,3 +1,4 @@
+import 'package:fastfood_ordering_system/screen/bestSellerPage/widgets/BestSellerItem.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../config/routes.dart';
@@ -46,46 +47,7 @@ class _BestSellerScreenState extends State<BestSellerScreen> {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                ProductItem(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProductDetailScreen(),
-                      ),
-                    );
-                  },
-                ),
-                Positioned(
-                  top: 0,
-                  right: 20,
-                  child: Container(
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(5),
-                      ),
-                    ),
-                    child: Text(
-                      'Bán chạy',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                      softWrap: true,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            BestSellerItem(),
           ],
         ),
       ),
