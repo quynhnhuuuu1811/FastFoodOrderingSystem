@@ -59,17 +59,6 @@ class _listProductScreenState extends State<listProductScreen> {
                 );
               },
             ),
-            ProductItem(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProductDetailScreen(),
-                  ),
-                );
-              },
-            ),
-            // Add more ProductItem widgets as needed
           ],
         ),
       ),

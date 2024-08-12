@@ -12,7 +12,7 @@ class RoundedTextField extends StatelessWidget {
     required this.keyboardType,
     required this.hintTextColor,
     required this.textInputAction,
-    required this.validator
+    this.validator
   });
 
   final TextEditingController controller;

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../config/routes.dart';
 import '../../../core/constant/app_color.dart';
 import '../../widget/TextButtons.dart';
-import 'ItemofOrder.dart';
+import 'ItemofOrderHistory.dart';
 
-class ItemInOrderList extends StatelessWidget {
-  ItemInOrderList({
+class ItemInOrderHistoryList extends StatelessWidget {
+  ItemInOrderHistoryList({
     super.key,
   });
 
@@ -39,20 +41,22 @@ class ItemInOrderList extends StatelessWidget {
                     fontFamily: 'Shopee_medium'
                 ),),
               const SizedBox(height:10),
-              ItemofOrder(
+              ItemofOrderHistory(
                   title: 'Địa chỉ', content: '02 Võ Oanh, Bình Thạnh, HCM'),
-              ItemofOrder(
+              ItemofOrderHistory(
                 title: 'Ghi chú',
                 content: 'Cho thêm tương ớt',
               ),
               Divider(color: Colors.black38,),
-              ItemofOrder(
+              ItemofOrderHistory(
                   title: 'Tổng tiền',
                   content: '123000VND'),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButtons(
-                  onpressed: (){},
+                  onpressed: (){
+                    context.go(RouteName.orderDetail);
+                  },
                   text: 'Xem chi tiết',
                   textSize: 18,
                   textColor: Colors.black,

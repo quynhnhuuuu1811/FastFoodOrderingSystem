@@ -4,11 +4,11 @@ class EditAccountInformationItem extends StatelessWidget {
   EditAccountInformationItem({
     super.key,
     required this.title,
-    required this.controller
-  });
+    required TextEditingController controller
+  }): _controller = controller;
 
   late String title;
-  late TextEditingController controller;
+  final TextEditingController _controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +25,7 @@ class EditAccountInformationItem extends StatelessWidget {
           SizedBox(width: 20),
           Flexible(
             child: TextFormField(
-              obscureText: true,
+              controller: _controller,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 border: OutlineInputBorder(

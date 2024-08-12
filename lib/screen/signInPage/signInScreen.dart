@@ -2,7 +2,7 @@ import 'package:fastfood_ordering_system/config/routes.dart';
 import 'package:fastfood_ordering_system/core/constant/app_color.dart';
 import 'package:fastfood_ordering_system/screen/homepage/HomePageScreen.dart';
 import 'package:fastfood_ordering_system/screen/signInPage/widgets/Register.dart';
-import 'package:fastfood_ordering_system/screen/widget/TextField.dart';
+import 'package:fastfood_ordering_system/screen/widget/RoundedTextField.dart';
 import 'package:fastfood_ordering_system/utils/validate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

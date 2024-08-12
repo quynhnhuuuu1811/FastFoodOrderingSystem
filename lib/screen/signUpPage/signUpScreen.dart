@@ -8,7 +8,7 @@ import '../../features/auth/bloc/auth_bloc.dart';
 import '../../utils/validate.dart';
 import '../widget/RoundedButton.dart';
 import '../widget/TextButtons.dart';
-import '../widget/TextField.dart';
+import '../widget/RoundedTextField.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
