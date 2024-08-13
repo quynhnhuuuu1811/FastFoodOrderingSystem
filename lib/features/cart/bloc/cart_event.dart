@@ -35,10 +35,11 @@ final class GetCart extends CartEvent {
 
 final class UpdateCart extends CartEvent {
   final int userId;
-  final Map<int, int> foodIdToQuantity;
-
+  final int quantity;
+  final int foodId;
   UpdateCart({
     required this.userId,
-    required this.foodIdToQuantity,
+    required this.quantity,
+    required this.foodId,
   });
 }

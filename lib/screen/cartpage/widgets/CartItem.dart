@@ -1,5 +1,10 @@
 import 'package:fastfood_ordering_system/features/cart/dtos/food_for_cart_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import thư viện
+import '../../../features/cart/bloc/cart_bloc.dart';
+import '../../../features/countController/bloc/count_controller_bloc.dart';
+import '../../../utils/token.dart';
 import '../../widget/AmountTextfield.dart';
 import '../../widget/IconInContainer.dart';
 
@@ -7,7 +12,6 @@ class CartItem extends StatefulWidget {
   const CartItem({
     Key? key,
     required this.food,
-
     required this.onCheckedChange,
   }) : super(key: key);
 
@@ -20,6 +24,27 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   bool isChecked = false;
+  String? userId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+    // Thêm SetQuantity sự kiện sau khi userId được tải
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CountControllerBloc>().add(SetQuantity(widget.food.cartFoodDto.quantity, widget.food.id));
+    });
+  }
+
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('accessToken');
+    if (token != null) {
+      setState(() {
+        userId = getUserIdFromToken(token);
+      });
+    }
+  }
 
   void toggleChecked(bool? value) {
     setState(() {
@@ -30,6 +55,12 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
+    if (userId == null) {
+      return const SizedBox.shrink();
+    }
+
+    final quantity = context.watch<CountControllerBloc>().state.quantityMap[widget.food.id] ?? 1;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -63,7 +94,7 @@ class _CartItemState extends State<CartItem> {
                       height: 110,
                       fit: BoxFit.fitWidth,
                     ),
-                    const SizedBox(width: 10), // Space between image and text
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +119,10 @@ class _CartItemState extends State<CartItem> {
                     ),
                     const SizedBox(width: 20),
                     IconInContainer(
-                      onPressed: () {},
+                      onPressed: () {
+
+                        context.read<CountControllerBloc>().add(DecrementUpdateQuantityCart(int.parse(userId!),widget.food.id));
+                      },
                       icon: Icons.remove,
                       colorIcon: Colors.white,
                       color: Colors.black,
@@ -97,10 +131,13 @@ class _CartItemState extends State<CartItem> {
                     ),
                     AmountTextfield(
                       containerSize: 30,
-                      fontsize: 20, quantity: widget.food.cartFoodDto.quantity,
+                      fontsize: 20,
+                      quantity: quantity,
                     ),
                     IconInContainer(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<CountControllerBloc>().add(IncrementUpdateQuantityCart(int.parse(userId!),widget.food.id));
+                      },
                       icon: Icons.add,
                       colorIcon: Colors.white,
                       color: Colors.black,
@@ -116,5 +153,7 @@ class _CartItemState extends State<CartItem> {
       ),
     );
   }
-
 }
+
+
+

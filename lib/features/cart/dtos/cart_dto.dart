@@ -1,4 +1,5 @@
 class CartDto{
+
   final int userId;
   final int foodId;
   final int quantity;

@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CartBloc(context.read<CartRepository>()),
           ),
           BlocProvider(
-            create: (context) => CountControllerBloc(),
+            create: (context) => CountControllerBloc(context.read<CartRepository>()),
           ),
         ],
         child: MaterialApp.router(

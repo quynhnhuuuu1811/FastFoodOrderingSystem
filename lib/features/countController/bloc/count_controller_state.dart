@@ -1,15 +1,12 @@
 part of 'count_controller_bloc.dart';
 
 final class CountControllerState {
-  final int quantity;
+  final Map<int, int> quantityMap; // Map foodId to quantity
+  CountControllerState({ this.quantityMap=const {} });
 
-  const CountControllerState({this.quantity = 1});
-
-  CountControllerState copyWith({
-    int? quantity,
-  }) {
+  CountControllerState copyWith({Map<int, int>? quantityMap}) {
     return CountControllerState(
-      quantity: quantity ?? this.quantity,
+      quantityMap: quantityMap ?? this.quantityMap,
     );
   }
 }

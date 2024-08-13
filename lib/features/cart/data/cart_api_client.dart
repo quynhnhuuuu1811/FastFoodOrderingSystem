@@ -57,7 +57,7 @@ class CartApiClient{
   }
 
   Future<String> updateCart(CartDto cart) async{
-
+    print(cart.foodId);
     try{
       final response = await dio.put('/v1/carts/${cart.userId}',
         data: {

@@ -34,7 +34,7 @@ class _CustomeBottomAppBarState extends State<CustomeBottomAppBar> {
   }
   @override
   Widget build(BuildContext context) {
-    int quantity = context.watch<CountControllerBloc>().state.quantity;
+    final quantity = context.watch<CountControllerBloc>().state.quantityMap[widget.food.id] ?? 1;
 
     return BottomAppBar(
       color: AppColors.grayColor,
@@ -53,7 +53,7 @@ class _CustomeBottomAppBarState extends State<CustomeBottomAppBar> {
               children: [
                 IconInContainer(
                   onPressed: () {
-                    context.read<CountControllerBloc>().add(Decrement());
+                    context.read<CountControllerBloc>().add(Decrement(widget.food.id));
                   },
                   icon: Icons.remove,
                   color: Colors.white,
@@ -68,7 +68,7 @@ class _CustomeBottomAppBarState extends State<CustomeBottomAppBar> {
                 ),
                 IconInContainer(
                   onPressed: () {
-                    context.read<CountControllerBloc>().add(Increment());
+                    context.read<CountControllerBloc>().add(Increment(widget.food.id));
                   },
                   icon: Icons.add,
                   color: Colors.white,
