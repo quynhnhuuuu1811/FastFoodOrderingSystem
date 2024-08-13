@@ -1,3 +1,4 @@
+import 'package:fastfood_ordering_system/features/cart/dtos/food_for_cart_dto.dart';
 import 'package:fastfood_ordering_system/screen/widget/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -8,12 +9,12 @@ import 'CartItem.dart';
 class HasProductCartScreen extends StatefulWidget {
   const HasProductCartScreen({
     Key? key,
-    required this.productNames,
-    required this.amountController,
+    required this.foods,
+
   }) : super(key: key);
 
-  final List<String> productNames;
-  final TextEditingController amountController;
+  final List<FoodForCartDto> foods;
+
 
   @override
   _HasProductCartScreenState createState() => _HasProductCartScreenState();
@@ -25,7 +26,7 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
   @override
   void initState() {
     super.initState();
-    _checkedStates = List<bool>.filled(widget.productNames.length, false);
+    _checkedStates = List<bool>.filled(widget.foods.length, false);
   }
 
   void _onCheckedChange(int index, bool isChecked) {
@@ -46,12 +47,10 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
           child: Column(
-            children: widget.productNames.asMap().entries.map((entry) {
+            children: widget.foods.asMap().entries.map((entry) {
               int index = entry.key;
-              String name = entry.value;
               return CartItem(
-                amountController: widget.amountController,
-                productName: name,
+                food: entry.value,
                 onCheckedChange: (isChecked) => _onCheckedChange(index, isChecked),
               );
             }).toList(),
@@ -62,32 +61,32 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
           ? BottomAppBar(
         color: Colors.white,
         height: 100,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10,20,10,10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RoundedButton(
-                buttonText: 'Xóa',
-                fontSize: 25,
-                buttonColor: Colors.black,
-                textColor: Colors.white,
-                font: 'Shopee_Bold',
-                onpressed: () {
+            child: Padding(
+            padding: const EdgeInsets.fromLTRB(10,20,10,10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                RoundedButton(
+                  buttonText: 'Xóa',
+                  fontSize: 25,
+                  buttonColor: Colors.black,
+                  textColor: Colors.white,
+                  font: 'Shopee_Bold',
+                  onpressed: () {
 
-                },
-              ),
-              RoundedButton(
-                buttonText: 'Thanh toán',
-                fontSize: 25,
-                buttonColor: Colors.black,
-                textColor: Colors.white,
-                font: 'Shopee_Bold',
-                onpressed: () {
-                  context.go(RouteName.order);
-                },
-              ),
-            ]
+                  },
+                ),
+                RoundedButton(
+                  buttonText: 'Thanh toán',
+                  fontSize: 25,
+                  buttonColor: Colors.black,
+                  textColor: Colors.white,
+                  font: 'Shopee_Bold',
+                  onpressed: () {
+                    context.push(RouteName.order);
+                  },
+                ),
+              ]
           ),
         ),
       )

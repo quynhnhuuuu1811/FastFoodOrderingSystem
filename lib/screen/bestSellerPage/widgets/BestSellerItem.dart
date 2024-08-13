@@ -1,28 +1,29 @@
+import 'package:fastfood_ordering_system/features/category/dtos/category_dto.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../features/foods/dtos/food_dto.dart';
 import '../../ProductDetailPage/ProductDetailScreen.dart';
 import '../../widget/ProductItem.dart';
 
 class BestSellerItem extends StatelessWidget {
-  const BestSellerItem({
+  BestSellerItem({
     super.key,
   });
-
+  final CategoryDto category= CategoryDto(id: 1, name: 'Bún chả', image: 'assets/images/demo.png');
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
         ProductItem(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProductDetailScreen(),
-              ),
-            );
-          },
+          food: FoodDto(
+            id: 1,
+            name: 'Bún chả',
+            price: 50000,
+            image: 'assets/images/demo.png',
+            category: category,
+          ),
         ),
         Positioned(
           top: 0,

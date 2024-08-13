@@ -18,8 +18,9 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Image(
             image: AssetImage(image_url),
@@ -29,6 +30,7 @@ class OrderItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 productname,
@@ -45,23 +47,25 @@ class OrderItem extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 90),
-          Column(
-            children: [
-              const Text(
-                'Số lượng',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              children: [
+                const Text(
+                  'Số lượng',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              Text(
-                '$quantity',
-                style: const TextStyle(
-                  fontSize: 18,
+                Text(
+                  '$quantity',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

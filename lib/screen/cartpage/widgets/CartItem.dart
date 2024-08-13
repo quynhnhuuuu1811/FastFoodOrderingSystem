@@ -1,3 +1,4 @@
+import 'package:fastfood_ordering_system/features/cart/dtos/food_for_cart_dto.dart';
 import 'package:flutter/material.dart';
 import '../../widget/AmountTextfield.dart';
 import '../../widget/IconInContainer.dart';
@@ -5,13 +6,12 @@ import '../../widget/IconInContainer.dart';
 class CartItem extends StatefulWidget {
   const CartItem({
     Key? key,
-    required this.productName,
-    required this.amountController,
+    required this.food,
+
     required this.onCheckedChange,
   }) : super(key: key);
 
-  final TextEditingController amountController;
-  final String productName;
+  final FoodForCartDto food;
   final ValueChanged<bool> onCheckedChange;
 
   @override
@@ -47,7 +47,7 @@ class _CartItemState extends State<CartItem> {
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
                 color: Colors.white,
@@ -57,33 +57,38 @@ class _CartItemState extends State<CartItem> {
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/images/demo.png',
+                    Image.network(
+                      widget.food.image,
                       width: 110,
                       height: 110,
                       fit: BoxFit.fitWidth,
                     ),
-                    const SizedBox(width: 10), // thêm khoảng cách giữa ảnh và text
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.productName,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Shopee_Medium',
+                    const SizedBox(width: 10), // Space between image and text
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.food.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Shopee_Medium',
+                            ),
                           ),
-                        ),
-                        const Text('123000 VND',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400
-                            )),
-                      ],
+                          Text(
+                            widget.food.price.toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 20),
                     IconInContainer(
+                      onPressed: () {},
                       icon: Icons.remove,
                       colorIcon: Colors.white,
                       color: Colors.black,
@@ -91,11 +96,11 @@ class _CartItemState extends State<CartItem> {
                       containerSize: 30,
                     ),
                     AmountTextfield(
-                      amountController: widget.amountController,
                       containerSize: 30,
-                      fontsize: 20,
+                      fontsize: 20, quantity: widget.food.cartFoodDto.quantity,
                     ),
                     IconInContainer(
+                      onPressed: () {},
                       icon: Icons.add,
                       colorIcon: Colors.white,
                       color: Colors.black,
@@ -111,4 +116,5 @@ class _CartItemState extends State<CartItem> {
       ),
     );
   }
+
 }

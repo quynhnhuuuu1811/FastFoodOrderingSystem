@@ -49,7 +49,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.black),
                   onPressed: () {
-                    context.pop();
+                    context.go(RouteName.home);
                   },
                 ),
                 actions: [
@@ -57,7 +57,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     icon: Icons.shopping_cart,
                     color: Colors.black,
                     onpressed: () {
-                      context.go(RouteName.cart);
+                      context.push(RouteName.cart);
                     },
                   ),
                 ],
@@ -82,7 +82,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       text: category.name,
                       height: 120,
                       onTap: () {
-                        context.go(RouteName.listProduct, extra: category.id);
+                        context.push(RouteName.listProduct, extra: category.id);
                       },
                     );
                   }).toList(),

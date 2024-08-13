@@ -30,12 +30,12 @@ class _OrderScreenState extends State<OrderScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Thông báo',
+          title: const Text('Thông báo',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold
           )),
-          content: SizedBox(
+          content: const SizedBox(
             height: 330,
             child: Column(
               children: [
@@ -51,13 +51,13 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('OK',
+              child: const Text('OK',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 17
               ),),
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                context.pop() ;// Close the dialog
                 context.go(RouteName.cart); // Navigate back to the cart
               },
             ),
@@ -74,9 +74,9 @@ class _OrderScreenState extends State<OrderScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.cart);
+            context.pop();
           },
         ),
         title: const Text(
@@ -125,7 +125,6 @@ class _OrderScreenState extends State<OrderScreen> {
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
                     itemCount: OrderList.length,
                     itemBuilder: (context, index) {
                       final item = OrderList[index];

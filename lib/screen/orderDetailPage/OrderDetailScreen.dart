@@ -35,7 +35,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.orderHistory);
+            context.pop();
           },
         ),
         title: const Text(
@@ -69,7 +69,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: orderDetailList.length,
                     itemBuilder: (context, index) {
                       final item = orderDetailList[index];

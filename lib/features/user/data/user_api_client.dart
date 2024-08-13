@@ -10,9 +10,9 @@ class UserApiClient{
 
   Future<UserDto> getUser(String id) async {
     try{
-      print("Id:$id");
+
       final response = await dio.get('/v1/users/$id');
-      print("Response: $response");
+
       return UserDto.fromJson(response.data);
     } on DioException catch (e) {
       if (e.response != null) {

@@ -36,7 +36,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           ],
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             context.go(RouteName.home);
           },
@@ -59,7 +59,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column (
           children: [
             ItemInOrderHistoryList()

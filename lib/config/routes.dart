@@ -1,4 +1,5 @@
 
+import 'package:fastfood_ordering_system/features/foods/dtos/food_dto.dart';
 import 'package:fastfood_ordering_system/screen/categoryPage/CategoryScreen.dart';
 import 'package:fastfood_ordering_system/screen/introPage/IntroScreen.dart';
 import 'package:fastfood_ordering_system/screen/listProductPage/listProductScreen.dart';
@@ -9,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/bloc/auth_bloc.dart';
 import '../screen/EditAccountInformationPage/EditAccountInformationScreen.dart';
 import '../screen/OrderPage/OrderScreen.dart';
+import '../screen/ProductDetailPage/ProductDetailScreen.dart';
 import '../screen/accountPage/AccountScreen.dart';
 import '../screen/bestSellerPage/BestSellerScreen.dart';
 import '../screen/cartpage/CartScreen.dart';
@@ -33,7 +35,7 @@ class RouteName{
   static const String orderDetail = '/OrderDetail';
   static const String order = '/order';
   static const String bestSeller = '/bestSeller';
-
+static const String productDetail = '/productDetail';
   static const publicRoutes = [
     login,
     register,
@@ -71,7 +73,11 @@ final router =GoRouter(
           builder: (context, state) => const CartScreen()
       ),
       GoRoute(path: RouteName.listProduct,
-          builder: (context, state) => const listProductScreen()
+          builder: (context, state) {
+            final categoryId = state.extra as int; // Giả sử `category.id` là String
+            // Trả về widget với categoryId
+            return listProductScreen(categoryId: categoryId);
+          }
       ),
       GoRoute(path: RouteName.orderHistory,
           builder: (context, state) => const OrderHistoryScreen()
@@ -94,7 +100,12 @@ final router =GoRouter(
       GoRoute(path:RouteName.order,
           builder: (context,state) => const OrderScreen()
       ),
-
+      GoRoute(path: RouteName.productDetail,
+          builder: (context, state) {
+            final product = state.extra as FoodDto ; // Giả sử `product` là một đối tượng
+            return ProductDetailScreen(food: product,);
+          }
+      ),
       GoRoute(path:RouteName.bestSeller,
           builder: (context,state) => const BestSellerScreen()),
     ]
