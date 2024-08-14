@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class EditPasswordItem extends StatelessWidget {
   EditPasswordItem({
     super.key,
@@ -17,14 +18,15 @@ class EditPasswordItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontFamily: 'Shopee_Bold',
             ),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Flexible(
             child: TextFormField(
+              controller: controller,
               obscureText: true,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),

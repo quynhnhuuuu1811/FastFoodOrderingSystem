@@ -119,7 +119,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       text: feature['text']!,
                       height:80,
                       onTap: () {
-                        context.go(feature['route']!);
+                        context.push(feature['route']!);
                       },
                     );
                   }).toList(),

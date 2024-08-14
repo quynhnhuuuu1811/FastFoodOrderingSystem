@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
+import '../features/order/dtos/order_success_dto.dart';
 import '../screen/EditAccountInformationPage/EditAccountInformationScreen.dart';
 import '../screen/OrderPage/OrderScreen.dart';
 import '../screen/ProductDetailPage/ProductDetailScreen.dart';
@@ -94,7 +95,13 @@ final router =GoRouter(
       ),
 
       GoRoute(path:RouteName.orderDetail,
-          builder: (context,state) => const OrderDetailScreen()
+
+          builder: (context,state) {
+
+            final order = state.extra  as OrderSuccessDto ;
+
+            return OrderDetailScreen(order: order);
+          }
       ),
 
       GoRoute(path:RouteName.order,

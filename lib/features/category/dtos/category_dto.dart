@@ -6,6 +6,11 @@ class CategoryDto{
 
   CategoryDto({required this.id, required this.name, required this.image});
 
+  CategoryDto.isEmpty(){
+    id = 0;
+    name = '';
+    image = '';
+  }
   CategoryDto.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];

@@ -1,31 +1,24 @@
+
+import 'package:fastfood_ordering_system/features/order/dtos/order_success_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../config/routes.dart';
+
 import '../../core/constant/app_color.dart';
-import '../widget/RoundedButton.dart';
-import '../widget/TextButtons.dart';
 import 'widgets/OrderDetailInformation.dart';
 import 'widgets/OrderDetailItem.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  const OrderDetailScreen({super.key});
+  const OrderDetailScreen({super.key,required this.order});
 
+  final OrderSuccessDto order;
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-  final List<Map<String, dynamic>> orderDetailList = [
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 1', 'price': 123000, 'quantity': 1},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 2', 'price': 123000, 'quantity': 2},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 3', 'price': 123000, 'quantity': 3},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 4', 'price': 123000, 'quantity': 4},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 5', 'price': 123000, 'quantity': 5},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 6', 'price': 123000, 'quantity': 6},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 7', 'price': 123000, 'quantity': 7},
-  ];
 
-  final int totalAmount = 0;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +26,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             context.pop();
           },
@@ -60,7 +53,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             children: [
               OrderDetailInformation(
                 title: 'Địa chỉ giao hàng',
-                content: '02 Võ Oanh, Bình Thạnh, HCM',
+                content: widget.order.address,
                 icon: Icons.location_on,
               ),
               const SizedBox(height: 5),
@@ -70,27 +63,27 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: orderDetailList.length,
+                    itemCount: widget.order.foodForOrderDto.length,
                     itemBuilder: (context, index) {
-                      final item = orderDetailList[index];
+                      final item = widget.order.foodForOrderDto[index];
                       return OrderDetailItem(
-                        productname: item['productName'],
-                        price: item['price'],
-                        quantity: item['quantity'],
-                        image_url: item['image_url'],
+                        productname: item.name,
+                        price: item.price,
+                        quantity: item.orderDetailDto.quantity,
+                        image_url: item.image,
                       );
                     },
                   ),
                   OrderDetailInformation(
                     title: 'Ghi chú',
-                    content: 'Giao hàng nhanh',
+                    content: widget.order.note,
                     icon: Icons.note,
                   ),
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Tổng tiền',
                         style: TextStyle(
                           fontSize: 25,
@@ -98,14 +91,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         ),
                       ),
                       Text(
-                        '$totalAmount VND',
-                        style: TextStyle(
+                        '${widget.order.total} VND',
+                        style: const TextStyle(
                           fontSize: 25,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height:100)
                 ],
               ),
             ],

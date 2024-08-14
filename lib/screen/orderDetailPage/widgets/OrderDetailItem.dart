@@ -23,7 +23,7 @@ class OrderDetailItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image(
-            image: AssetImage(image_url),
+            image: NetworkImage(image_url),
             width: 120,
           ),
           const SizedBox(width: 10),

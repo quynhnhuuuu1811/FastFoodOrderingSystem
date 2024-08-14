@@ -26,3 +26,15 @@ final class UpdateSelectItems extends OrderEvent {
     required this.selectItems,
   });
 }
+
+final class GetOrderByUserId extends OrderEvent {
+  final int userId;
+
+  GetOrderByUserId({
+    required this.userId,
+  });
+}
+
+final class GetBestSeller extends OrderEvent {
+
+}

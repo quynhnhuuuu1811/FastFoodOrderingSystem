@@ -5,10 +5,10 @@ class UserDto{
   final String password;
 
   UserDto({
-    required this.id,
-    required this.name,
-    required this.phoneNumber,
-    required this.password,
+     this.id=0,
+    this.name="",
+    this.phoneNumber="",
+     this.password="",
   });
 
   UserDto.empty()
