@@ -16,9 +16,9 @@ class CartRepository{
     return await cartApiClient.getCartByUserId(userId);
   }
 
-  // Future<String> removeFoodFromCart(int userId, int foodId) async{
-  //   return await cartApiClient.removeFoodFromCart(userId, foodId);
-  // }
+  Future<String> removeFoodFromCart(int cartId, int foodId) async{
+    return await cartApiClient.removeFoodFromCart(cartId, foodId);
+  }
 
   Future<String> updateCart(int userId, int quantity,int foodId) async{
     return await cartApiClient.updateCart(CartDto(foodId: foodId, quantity: quantity, userId: userId));

@@ -98,7 +98,8 @@ final router =GoRouter(
       ),
 
       GoRoute(path:RouteName.order,
-          builder: (context,state) => const OrderScreen()
+
+          builder: (context,state) =>  OrderScreen()
       ),
       GoRoute(path: RouteName.productDetail,
           builder: (context, state) {

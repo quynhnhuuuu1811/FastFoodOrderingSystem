@@ -3,6 +3,7 @@ import 'package:fastfood_ordering_system/features/auth/data/network/auth_interce
 import 'package:fastfood_ordering_system/features/cart/bloc/cart_bloc.dart';
 import 'package:fastfood_ordering_system/features/cart/data/cart_api_client.dart';
 import 'package:fastfood_ordering_system/features/countController/bloc/count_controller_bloc.dart';
+import 'package:fastfood_ordering_system/features/order/data/order_api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,8 @@ import 'features/auth/data/auth_api_client.dart';
 import 'features/auth/data/auth_local_data_source.dart';
 import 'features/auth/data/auth_repository.dart';
 import 'features/cart/data/cart_repository.dart';
+import 'features/order/bloc/order_bloc.dart';
+import 'features/order/data/order_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +43,11 @@ class MyApp extends StatelessWidget {
             cartApiClient: CartApiClient(dio),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => OrderRepository(
+            OrderApiClient(dio),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -52,6 +60,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CountControllerBloc(context.read<CartRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => OrderBloc(context.read<OrderRepository>()),
           ),
         ],
         child: MaterialApp.router(

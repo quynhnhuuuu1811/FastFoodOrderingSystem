@@ -19,14 +19,14 @@ class CartSuccessDto{
 
   factory CartSuccessDto.fromJson(Map<String, dynamic> json) {
     List<FoodForCartDto> foodForCartDto = [];
-    print(json);
+
     if (json['Food'] != null) {
       // Assuming `foodForCartDto` is a list of maps in the JSON
       foodForCartDto = List<FoodForCartDto>.from(
           json['Food'].map((item) => FoodForCartDto.fromJson(item))
       );
     }
-    print(foodForCartDto);
+
     return CartSuccessDto(
       id: json['id'],
       userId: json['UserId'],

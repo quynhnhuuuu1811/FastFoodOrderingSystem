@@ -35,11 +35,12 @@ class CartApiClient{
   }
 
   Future<CartSuccessDto> getCartByUserId(int userId) async{
-
+  print(userId);
     try{
       final response = await dio.get('/v1/carts/$userId',
 
       );
+      print(response.data);
       return CartSuccessDto.fromJson(response.data);
     }on DioException catch (e) {
       if (e.response != null) {
@@ -65,6 +66,29 @@ class CartApiClient{
           'quantity': cart.quantity,
         },
 
+      );
+      return response.data['message'];
+    }on DioException catch (e) {
+      if (e.response != null) {
+        log('DioException: ${e.message}');
+        log('Response data: ${e.response!.data}');
+        throw Exception(e.response!.data['message'] ?? 'Unknown error');
+      } else {
+        log('DioException without response: ${e.message}');
+        throw Exception(e.message);
+      }
+    } catch (e) {
+      log('Unknown exception: $e');
+      throw Exception('Unknown error occurred');
+    }
+  }
+
+  Future<String> removeFoodFromCart(int cartId, int foodId) async{
+    try{
+      final response = await dio.delete('/v1/carts/$cartId',
+        data: {
+          'foodId': foodId,
+        },
       );
       return response.data['message'];
     }on DioException catch (e) {

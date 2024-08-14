@@ -1,13 +1,14 @@
 class CartDto{
-
+final int carId;
   final int userId;
   final int foodId;
   final int quantity;
 
   CartDto({
+    this.carId=-1,
     required this.foodId,
     required this.quantity,
-    required this.userId,
+    this.userId=-1,
   });
 
   Map<String, dynamic> toJson() => {

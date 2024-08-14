@@ -47,6 +47,7 @@ class _CartItemState extends State<CartItem> {
   }
 
   void toggleChecked(bool? value) {
+
     setState(() {
       isChecked = !isChecked;
       widget.onCheckedChange(isChecked);
@@ -103,8 +104,9 @@ class _CartItemState extends State<CartItem> {
                           Text(
                             widget.food.name,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: 'Shopee_Medium',
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           Text(
@@ -120,7 +122,6 @@ class _CartItemState extends State<CartItem> {
                     const SizedBox(width: 20),
                     IconInContainer(
                       onPressed: () {
-
                         context.read<CountControllerBloc>().add(DecrementUpdateQuantityCart(int.parse(userId!),widget.food.id));
                       },
                       icon: Icons.remove,
@@ -131,7 +132,7 @@ class _CartItemState extends State<CartItem> {
                     ),
                     AmountTextfield(
                       containerSize: 30,
-                      fontsize: 20,
+                      fontsize: 18,
                       quantity: quantity,
                     ),
                     IconInContainer(

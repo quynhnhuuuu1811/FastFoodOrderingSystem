@@ -39,14 +39,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             const Divider(color: AppColors.grayColor, thickness: 2),
              Padding(
-              padding: const EdgeInsets.only(top:20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.food.name,
                     style: const TextStyle(
-                      fontSize: 27,
+                      fontSize: 25,
                       fontFamily: 'Shopee_Bold',
                     ),
                   ),
@@ -54,7 +54,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Text(
                     '${widget.food.price} VND',
                     style: const TextStyle(
-                      fontSize: 23,
+                      fontSize: 24,
                       fontFamily: 'Shopee_Medium',
                     ),
                   ),
