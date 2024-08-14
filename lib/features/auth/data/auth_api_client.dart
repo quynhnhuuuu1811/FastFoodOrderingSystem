@@ -18,7 +18,7 @@ class AuthApiClient {
           'password': loginDto.password,
         },
       );
-
+      print(response.data);
       return LoginSuccessDto.fromJson(response.data);
     } on DioException catch (e) {
       if (e.response != null) {

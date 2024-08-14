@@ -1,64 +1,70 @@
 import 'package:fastfood_ordering_system/screen/OrderPage/widgets/OrderItem.dart';
 import 'package:fastfood_ordering_system/screen/widget/RoundedTextField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/routes.dart';
 import '../../core/constant/app_color.dart';
+import '../../features/order/bloc/order_bloc.dart';
+import '../../features/order/dtos/select_Items_dto.dart';
+import '../../utils/token.dart';
 import '../widget/RoundedButton.dart';
 
-
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+  OrderScreen({super.key});
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  final List<Map<String, dynamic>> OrderList = [
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 1', 'price': 123000, 'quantity': 1},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 2', 'price': 123000, 'quantity': 2},
-    {'image_url': 'assets/images/demo.png', 'productName': 'Tên món 3', 'price': 123000, 'quantity': 3},
-  ];
+  int userId = 0;
+  late int totalAmount = 0;
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
 
-  final int totalAmount = 0;
-  TextEditingController _addressController = TextEditingController();
-  TextEditingController _noteController = TextEditingController();
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('accessToken');
+    if (token != null) {
+      setState(() {
+        userId = int.parse(getUserIdFromToken(token));
+      });
+    }
+  }
 
   void _showPaymentDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Thông báo',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold
-          )),
-          content: SizedBox(
+          title: const Text('Thông báo',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          content: const SizedBox(
             height: 330,
             child: Column(
               children: [
-                Image(image: AssetImage('assets/images/deliver.gif'),),
+                Image(
+                  image: AssetImage('assets/images/deliver.gif'),
+                ),
                 SizedBox(height: 20),
-                Text('Đơn hàng đang giao tới bạn. Vui lòng kiểm tra điện thoại để nhận được cuộc gọi của shipper',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.italic
-                )),
+                Text(
+                  'Đơn hàng đang giao tới bạn. Vui lòng kiểm tra điện thoại để nhận được cuộc gọi của shipper',
+                  style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('OK',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 17
-              ),),
+              child: const Text(
+                'OK',
+                style: TextStyle(color: Colors.black, fontSize: 17),
+              ),
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                context.go(RouteName.cart); // Navigate back to the cart
+                context.pop(); // Close the dialog
+                context.go(RouteName.home); // Navigate back to the cart
               },
             ),
           ],
@@ -67,16 +73,92 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
+  void _handleOrderState(OrderState orderState) {
+    if (orderState.status == OrderStatus.success) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showPaymentDialog();
+      });
+    } else if (orderState.status == OrderStatus.failure) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Thông báo',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold)),
+              content: const SizedBox(
+                height: 330,
+                child: Column(
+                  children: [
+                    Text(
+                      'Đã xảy ra lỗi trong quá trình đặt hàng. Vui lòng thử lại sau',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17),
+                  ),
+                  onPressed: () {
+                    context.pop(); // Close the dialog
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      });
+    }
+  }
+  void calculateTotalAmount(List<SelectItemsDto> items) {
+    totalAmount = items.fold(0, (sum, item) => sum + (item.price * item.quantity));
+  }
+
+  void onCheckOut() {
+    final orderState = context.read<OrderBloc>().state;
+    final userId = this.userId;
+    final address = _addressController.text;
+    final note = _noteController.text;
+    context.read<OrderBloc>().add(OrderCreate(
+      address: address,
+      selectItems: orderState.selectItems,
+      userId: userId,
+      note: note,
+    ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final orderState = context.watch<OrderBloc>().state;
+    _handleOrderState(orderState);
+    // Reset totalAmount before recalculating
+   calculateTotalAmount(orderState.selectItems);
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.cart);
+            context.pop();
           },
         ),
         title: const Text(
@@ -111,7 +193,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   textInputAction: TextInputAction.done,
                   validator:null),
               RoundedTextField(
-                  controller:_addressController,
+                  controller:_noteController,
                   hintText: 'Nhập ghi chú',
                   icon: Icons.note_alt_sharp,
                   isPassword: false,
@@ -125,15 +207,15 @@ class _OrderScreenState extends State<OrderScreen> {
                 children: [
                   ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: OrderList.length,
+                    itemCount: orderState.selectItems.length,
                     itemBuilder: (context, index) {
-                      final item = OrderList[index];
+                      final item = orderState.selectItems[index];
+                      totalAmount += item.price * item.quantity;
                       return OrderItem(
-                        productname: item['productName'],
-                        price: item['price'],
-                        quantity: item['quantity'],
-                        image_url: item['image_url'],
+                        productname: item.name,
+                        price: item.price,
+                        quantity: item.quantity,
+                        image_url: item.image,
                       );
                     },
                   ),
@@ -141,7 +223,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Tổng tiền',
                         style: TextStyle(
                           fontSize: 27,
@@ -150,16 +232,16 @@ class _OrderScreenState extends State<OrderScreen> {
                       ),
                       Text(
                         '$totalAmount VND',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 27,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   RoundedButton(
                     textColor: Colors.white,
-                    onpressed: _showPaymentDialog, // Show the dialog
+                    onpressed: onCheckOut,
                     buttonColor: Colors.black,
                     fontSize: 25,
                     buttonText: 'Thanh toán ngay',
@@ -167,7 +249,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     font: 'Shopee_Bold',
                     iconColor: null,
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
               ),
             ],
@@ -176,4 +258,5 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
     );
   }
+
 }

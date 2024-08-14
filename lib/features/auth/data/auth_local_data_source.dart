@@ -9,7 +9,9 @@ class AuthLocalDataSource{
 
   Future<void> saveToken(String accessToken, String refreshToken) async {
     await sf.setString( AuthDataConstants.refreshToken,  refreshToken);
+    print('refreshToken: $refreshToken');
     await sf.setString(AuthDataConstants.accessToken,  accessToken);
+    print('accessToken: $accessToken');
   }
 
   Future<String?> getAccessToken() async {

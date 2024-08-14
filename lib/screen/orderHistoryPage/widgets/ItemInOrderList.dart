@@ -47,7 +47,7 @@ class ItemInOrderHistoryList extends StatelessWidget {
                 title: 'Ghi chú',
                 content: 'Cho thêm tương ớt',
               ),
-              Divider(color: Colors.black38,),
+              const Divider(color: Colors.black38,),
               ItemofOrderHistory(
                   title: 'Tổng tiền',
                   content: '123000VND'),
@@ -55,7 +55,7 @@ class ItemInOrderHistoryList extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButtons(
                   onpressed: (){
-                    context.go(RouteName.orderDetail);
+                    context.push(RouteName.orderDetail);
                   },
                   text: 'Xem chi tiết',
                   textSize: 18,

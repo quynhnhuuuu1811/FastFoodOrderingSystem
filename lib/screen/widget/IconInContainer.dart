@@ -7,7 +7,8 @@ class IconInContainer extends StatelessWidget {
     required this.color,
     required this.colorIcon,
     required this.containerSize,
-    required this.iconSize
+    required this.iconSize,
+    required this.onPressed,
   });
 
   final IconData icon;
@@ -15,7 +16,7 @@ class IconInContainer extends StatelessWidget {
   final Color colorIcon;
   final double containerSize;
   final double iconSize;
-
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +31,7 @@ class IconInContainer extends StatelessWidget {
         ),
         child: Center(
           child: IconButton(
-            onPressed: () {},
+            onPressed: onPressed,
             icon: Icon(
               icon,
               size: iconSize,

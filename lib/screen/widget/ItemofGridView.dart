@@ -27,17 +27,17 @@ class ItemofGridView extends StatelessWidget {
             )
         ),
         width: 150,
-        margin: EdgeInsets.symmetric(horizontal: 5.0),
+        margin: const EdgeInsets.symmetric(horizontal: 5.0),
         child: Center(
           child: Column(
             children: [
-              Image.asset(
+              Image.network(
                 picturePath,
                 height: height,
               ),
               Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Shopee_Bold',
                   fontSize: 18,
                 ),

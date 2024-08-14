@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class AmountTextfield extends StatelessWidget {
   const AmountTextfield({
     super.key,
-    required TextEditingController amountController,
+    required this.quantity,
     required this.fontsize,
     required this.containerSize
-  }) : _amountController = amountController;
+  }) ;
 
-  final TextEditingController _amountController;
+
   final double fontsize;
   final double containerSize;
-
+  final int quantity;
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _amountController=TextEditingController(text: quantity.toString());
+
     return Container(
       width: containerSize,
       height: containerSize,

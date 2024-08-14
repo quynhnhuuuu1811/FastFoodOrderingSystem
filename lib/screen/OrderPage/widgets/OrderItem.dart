@@ -18,47 +18,41 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+
         children: [
           Image(
-            image: AssetImage(image_url),
+            image: NetworkImage(image_url),
             width: 120,
+            height: 120,
+            fit: BoxFit.fitHeight,
           ),
-          const SizedBox(width: 10),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 productname,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
               Text(
                 '$price VND', // Hiển thị giá với đơn vị tiền tệ
                 style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 90),
-          Column(
-            children: [
-              const Text(
-                'Số lượng',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
                 ),
               ),
               Text(
-                '$quantity',
+                'Số lượng: $quantity', // Hiển thị số lượng sản phẩm
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 15,
                 ),
               ),
             ],

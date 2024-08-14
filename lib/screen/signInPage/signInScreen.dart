@@ -31,15 +31,15 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _handleSignIn(BuildContext context) {
-    // if(_formKey.currentState!.validate()){
-    //   context.read<AuthBloc>().add(
-    //     AuthLoginStarted(
-    //       phoneController.text,
-    //       passwordController.text,
-    //     ),
-    //   );
-    // }
-    context.go(RouteName.home); 
+    if(_formKey.currentState!.validate()){
+      context.read<AuthBloc>().add(
+        AuthLoginStarted(
+          phoneController.text,
+          passwordController.text,
+        ),
+      );
+    }
+    // context.go(RouteName.home);
   }
   @override
   Widget build(BuildContext context) {

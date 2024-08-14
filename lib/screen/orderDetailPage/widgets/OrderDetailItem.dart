@@ -18,8 +18,9 @@ class OrderDetailItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image(
             image: AssetImage(image_url),
@@ -29,6 +30,7 @@ class OrderDetailItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 productname,
@@ -45,7 +47,7 @@ class OrderDetailItem extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 90),
+          const SizedBox(width: 10),
           Column(
             children: [
               const Text(

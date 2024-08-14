@@ -1,11 +1,13 @@
-import 'package:fastfood_ordering_system/screen/cartpage/widgets/CartItem.dart';
 import 'package:fastfood_ordering_system/screen/cartpage/widgets/EmptyCartScreen.dart';
 import 'package:fastfood_ordering_system/screen/cartpage/widgets/HasProductCartScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../config/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constant/app_color.dart';
+import '../../features/cart/bloc/cart_bloc.dart';
+import '../../features/order/dtos/select_Items_dto.dart';
+import '../../utils/token.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -15,24 +17,34 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final TextEditingController _amountController = TextEditingController(text: '1');
-  final List<String> _productNames = ['Sản phẩm 1', 'Sản phẩm 2', 'Sản phẩm 3'];
-  bool showDeleteButton = false;
 
-  void onCheckedChange(isChecked) {
-    setState(() {
-      showDeleteButton = isChecked;
-    });
+  int userId = 0;
+@override
+  void initState() {
+
+    super.initState();
+    _loadUserId().then((o)=>context.read<CartBloc>().add(GetCart(userId: userId)));
+
   }
 
-  @override
-  void dispose() {
-    _amountController.dispose();
-    super.dispose();
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('accessToken');
+    if (token != null) {
+      setState(() {
+        userId = int.parse(getUserIdFromToken(token));
+      });
+    }
   }
-
   @override
   Widget build(BuildContext context) {
+    final cartState = context.watch<CartBloc>().state;
+    if (cartState.status==CartStatus.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    else if(cartState.status==CartStatus.failure){
+      return Center(child: Text(cartState.message));
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -53,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.home);
+            context.pop();
           },
         ),
         bottom: PreferredSize(
@@ -64,11 +76,12 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: _productNames.isEmpty
+      body: cartState.cartSuccessDto.foodForCartDto.isEmpty
           ? const EmptyCartScreen()
-          : HasProductCartScreen(productNames: _productNames, amountController: _amountController),
+          : HasProductCartScreen(foods:cartState.cartSuccessDto.foodForCartDto ,),
     );
   }
+
 }
 
 
