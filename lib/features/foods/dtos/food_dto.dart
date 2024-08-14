@@ -11,8 +11,8 @@ class FoodDto{
     required this.name,
     required this.price,
     required this.image,
-    required this.category,
-  });
+    CategoryDto? category,
+  }) : category = category ?? CategoryDto.isEmpty();
 
   factory FoodDto.fromJson(Map<String, dynamic> json){
     return FoodDto(
@@ -24,6 +24,14 @@ class FoodDto{
     );
   }
 
+  factory FoodDto.fromJsonNotCategory(Map<String, dynamic> json){
+    return FoodDto(
+      id: json['id'],
+      name: json['name'],
+      price: json['price'],
+      image: json['image'],
+    );
+  }
   Map<String, dynamic> toJson(){
     return {
       'id': id,

@@ -6,12 +6,13 @@ final class OrderState {
   final String message;
   final List<OrderSuccessDto> orders;
   final List<SelectItemsDto> selectItems;
-
+  final List<FoodDto> bestSeller;
   OrderState({
     this.status = OrderStatus.initial,
     this.message = '',
     this.orders = const [],
     this.selectItems = const [],
+    this.bestSeller = const [],
   });
 
   OrderState copyWith({
@@ -19,12 +20,14 @@ final class OrderState {
     String? message,
     List<OrderSuccessDto>? orders,
     List<SelectItemsDto>? selectItems,
+    List<FoodDto>? bestSeller,
   }) {
     return OrderState(
       status: status ?? this.status,
       message: message ?? this.message,
       orders: orders ?? this.orders,
       selectItems: selectItems ?? this.selectItems,
+      bestSeller: bestSeller ?? this.bestSeller,
     );
   }
 

@@ -9,21 +9,17 @@ import '../../widget/ProductItem.dart';
 class BestSellerItem extends StatelessWidget {
   BestSellerItem({
     super.key,
+    required this.food,
   });
-  final CategoryDto category= CategoryDto(id: 1, name: 'Bún chả', image: 'assets/images/demo.png');
+
+  final FoodDto food;
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
         ProductItem(
-          food: FoodDto(
-            id: 1,
-            name: 'Bún chả',
-            price: 50000,
-            image: 'assets/images/demo.png',
-            category: category,
-          ),
+          food: food
         ),
         Positioned(
           top: 0,

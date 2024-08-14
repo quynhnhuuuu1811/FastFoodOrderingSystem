@@ -23,13 +23,13 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  late Future<String> _userIdFuture;
+  String _userId='';
 
   void _showEditOptionsDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return EditAlertDialog();
+        return const EditAlertDialog();
       },
     );
   }
@@ -37,7 +37,12 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   void initState() {
     super.initState();
-    _userIdFuture = _getUserId();
+     _getUserId().then((value) {
+      setState(() {
+        _userId = value;
+        context.read<UserBloc>().add(FetchUser(_userId));
+      });
+     });
   }
 
   Future<String> _getUserId() async {
@@ -51,6 +56,12 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userState = context.watch<UserBloc>().state;
+    if (userState.status == UserStatus.loading) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (userState.status == UserStatus.failure) {
+      return const Center(child: Text('Failed to load user'));
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -74,7 +85,7 @@ class _AccountScreenState extends State<AccountScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            context.go(RouteName.home);
+            context.pop();
           },
         ),
         actions: [
@@ -90,52 +101,21 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),
-        child: FutureBuilder<String>(
-          future: _userIdFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(child: Text('Failed to load user'));
-            } else if (!snapshot.hasData) {
-              return const Center(child: Text('No user data available'));
-            }
-            final userId = snapshot.data!;
-            return RepositoryProvider(
-              create: (context) => UserRepository(userApiClient: UserApiClient(dio: dio)),
-              child: BlocProvider(
-                create: (context) => UserBloc(context.read<UserRepository>())..add(FetchUser(userId)),
-                child: Builder(
-                  builder: (context) {
-                    final userState = context.watch<UserBloc>().state;
-                    if (userState.status == UserStatus.loading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (userState.status == UserStatus.failure) {
-                      return const Center(child: Text('Failed to load user'));
-                    }
-                    UserDto user = userState.user;
-                    return Column(
-                      children: [
-                        InformationItem(
-                          title: 'Tên',
-                          content: user.name,
-                          isPassword: false,
-                        ),
-                        InformationItem(
-                          title: 'Số điện thoại',
-                          content: user.phoneNumber,
-                          isPassword: false,
-                        ),
-
-                      ],
-                    );
-                  },
+        child: Column(
+              children: [
+                InformationItem(
+                  title: 'Tên',
+                  content: userState.user.name,
+                  isPassword: false,
                 ),
-              ),
-            );
-          },
+                InformationItem(
+                  title: 'Số điện thoại',
+                  content: userState.user.phoneNumber,
+                  isPassword: false,
+                ),
+              ],
+            ),
         ),
-      ),
     );
   }
 }

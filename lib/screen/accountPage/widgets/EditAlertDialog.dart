@@ -19,7 +19,7 @@ class EditAlertDialog extends StatelessWidget {
               icon: const Icon(Icons.close,
                   size: 20),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
           ),
@@ -46,7 +46,7 @@ class EditAlertDialog extends StatelessWidget {
                   color: Colors.black54
               )),
           onPressed: () {
-            context.go(RouteName.editPassword);
+            context.push(RouteName.editPassword);
           },
         ),
         TextButton(
@@ -56,7 +56,7 @@ class EditAlertDialog extends StatelessWidget {
                   color: Colors.black54
               )),
           onPressed: () {
-            context.go(RouteName.editAccountInformation);
+            context.push(RouteName.editAccountInformation);
           },
         ),
       ],
