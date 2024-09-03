@@ -41,3 +41,13 @@ String? validateFullName(String? fullName) {
   }
   return null;
 }
+
+String? validateAddress(String? address) {
+  if (address == null || address.trim().isEmpty) {
+    return 'Vui lòng nhập địa chỉ';
+  }
+  if (address.trim().length < 6) {
+    return 'Địa chỉ phải có ít nhất 6 ký tự';
+  }
+  return null;
+}

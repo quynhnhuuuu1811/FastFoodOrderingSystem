@@ -9,6 +9,7 @@ import '../../core/constant/app_color.dart';
 import '../../features/order/bloc/order_bloc.dart';
 import '../../features/order/dtos/select_Items_dto.dart';
 import '../../utils/token.dart';
+import '../../utils/validate.dart';
 import '../widget/RoundedButton.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   int userId = 0;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late int totalAmount = 0;
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
@@ -120,21 +122,25 @@ class _OrderScreenState extends State<OrderScreen> {
       });
     }
   }
+
   void calculateTotalAmount(List<SelectItemsDto> items) {
     totalAmount = items.fold(0, (sum, item) => sum + (item.price * item.quantity));
   }
 
   void onCheckOut() {
-    final orderState = context.read<OrderBloc>().state;
-    final userId = this.userId;
-    final address = _addressController.text;
-    final note = _noteController.text;
-    context.read<OrderBloc>().add(OrderCreate(
-      address: address,
-      selectItems: orderState.selectItems,
-      userId: userId,
-      note: note,
-    ));
+    if (_formKey.currentState!.validate()) {
+      final orderState = context.read<OrderBloc>().state;
+      final userId = this.userId;
+      final address = _addressController.text;
+      final note = _noteController.text;
+      context.read<OrderBloc>().add(OrderCreate(
+        address: address,
+        selectItems: orderState.selectItems,
+        userId: userId,
+        note: note,
+      ));
+    }
+
   }
 
   @override
@@ -182,26 +188,33 @@ class _OrderScreenState extends State<OrderScreen> {
           child: Column(
             children: [
               const SizedBox(height: 5),
-              RoundedTextField(
-                  controller:_addressController,
-                  hintText: 'Nhập địa chỉ giao hàng',
-                  icon: Icons.location_on,
-                  isPassword: false,
-                  selectColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  hintTextColor: AppColors.grayColor,
-                  textInputAction: TextInputAction.done,
-                  validator:null),
-              RoundedTextField(
-                  controller:_noteController,
-                  hintText: 'Nhập ghi chú',
-                  icon: Icons.note_alt_sharp,
-                  isPassword: false,
-                  selectColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  hintTextColor: AppColors.grayColor,
-                  textInputAction: TextInputAction.done,
-                  validator:null),
+              Form(
+                key: _formKey,
+                child: Column(
+                children: [
+                  RoundedTextField(
+                      controller:_addressController,
+                      hintText: 'Nhập địa chỉ giao hàng',
+                      icon: Icons.location_on,
+                      isPassword: false,
+                      selectColor: Colors.black,
+                      keyboardType: TextInputType.text,
+                      hintTextColor: AppColors.grayColor,
+                      textInputAction: TextInputAction.next,
+                      validator: validateAddress),
+                  RoundedTextField(
+                      controller:_noteController,
+                      hintText: 'Nhập ghi chú',
+                      icon: Icons.note_alt_sharp,
+                      isPassword: false,
+                      selectColor: Colors.black,
+                      keyboardType: TextInputType.text,
+                      hintTextColor: AppColors.grayColor,
+                      textInputAction: TextInputAction.done,
+                      validator:null),
+                ]
+                )
+              ),
               const Divider(),
               Column(
                 children: [

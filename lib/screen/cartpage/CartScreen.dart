@@ -39,10 +39,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartState = context.watch<CartBloc>().state;
-    if (cartState.status==CartStatus.loading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    else if(cartState.status==CartStatus.failure){
+     if(cartState.status==CartStatus.failure){
       return Center(child: Text(cartState.message));
     }
     return Scaffold(
