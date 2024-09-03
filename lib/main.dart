@@ -23,12 +23,18 @@ import 'features/user/data/user_api_client.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final sf = await SharedPreferences.getInstance();
-  runApp(MyApp(sf: sf));
+  final accessToken = sf.getString('accessToken');
+
+  // Xác định đường dẫn ban đầu
+  String initialRoute = accessToken != null ? RouteName.home : RouteName.intro;
+
+  runApp(MyApp(sf: sf, initialRoute: initialRoute));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.sf}) : super(key: key);
+  const MyApp({Key? key, required this.sf, required this.initialRoute}) : super(key: key);
   final SharedPreferences sf;
+  final String initialRoute; // Thêm biến để lưu đường dẫn ban đầu
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthBloc(context.read<AuthRepository>()),
           ),
-          // Thêm các Bloc khác nếu cần
           BlocProvider(
             create: (context) => CartBloc(context.read<CartRepository>()),
           ),
@@ -77,10 +82,11 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp.router(
-          routerConfig: router,
+          routerConfig: router(initialRoute), // Sử dụng `initialRoute` để cấu hình router
           debugShowCheckedModeBanner: false,
         ),
       ),
     );
   }
 }
+

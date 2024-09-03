@@ -22,9 +22,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   final List<Map<String, dynamic>> featureList = [
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Faccount.jpg?alt=media&token=c4f4c5c5-7600-4b05-ba4f-6e3884cdf107', 'text': 'Tài khoản', 'route': RouteName.account},
-    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Fbest_seller.jpg?alt=media&token=712374a0-c52f-467a-9e80-fe1eddbfd28f', 'text': 'Đặt hàng', 'route': RouteName.category},
+    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Forder.png?alt=media&token=9fdacf80-bd62-4f29-84c2-1e868940e755', 'text': 'Đặt hàng', 'route': RouteName.category},
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Finvoice.jpg?alt=media&token=0b6c079a-b63d-44dc-a51e-ea4edabcceb1', 'text': 'Lịch sử mua hàng', 'route': RouteName.orderHistory},
-    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Ffavorite.jpg?alt=media&token=7751ad74-ac1a-41ef-8acc-0571e8a9ceb0', 'text': 'Bán chạy', 'route': RouteName.bestSeller},
+    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Fbest_seller.jpg?alt=media&token=712374a0-c52f-467a-9e80-fe1eddbfd28f', 'text': 'Bán chạy', 'route': RouteName.bestSeller},
   ];
 
   @override

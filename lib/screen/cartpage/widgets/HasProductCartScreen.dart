@@ -1,23 +1,25 @@
+import 'package:fastfood_ordering_system/features/cart/bloc/cart_bloc.dart';
 import 'package:fastfood_ordering_system/features/cart/dtos/food_for_cart_dto.dart';
 import 'package:fastfood_ordering_system/screen/widget/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/routes.dart';
 import '../../../features/order/bloc/order_bloc.dart';
 import '../../../features/order/dtos/select_Items_dto.dart';
+import '../../../utils/token.dart';
 import 'CartItem.dart';
+import 'EmptyCartScreen.dart';  // Import the EmptyCartScreen
 
 class HasProductCartScreen extends StatefulWidget {
   const HasProductCartScreen({
     Key? key,
     required this.foods,
-
   }) : super(key: key);
 
   final List<FoodForCartDto> foods;
-
 
   @override
   _HasProductCartScreenState createState() => _HasProductCartScreenState();
@@ -26,12 +28,24 @@ class HasProductCartScreen extends StatefulWidget {
 class _HasProductCartScreenState extends State<HasProductCartScreen> {
   late List<bool> _checkedStates;
   late List<SelectItemsDto> _selectedItems;
+  String? userId;
 
   @override
   void initState() {
     super.initState();
+    _loadUserId();
     _checkedStates = List<bool>.filled(widget.foods.length, false);
-    _selectedItems=[];
+    _selectedItems = [];
+  }
+
+  Future<void> _loadUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('accessToken');
+    if (token != null) {
+      setState(() {
+        userId = getUserIdFromToken(token);
+      });
+    }
   }
 
   void _onCheckedChange(int index, bool isChecked) {
@@ -51,14 +65,17 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
     });
   }
 
-
   bool get _showBottomButton {
     return _checkedStates.contains(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final orderState = context.watch<OrderBloc>().state;
+    if (widget.foods.isEmpty) {
+      // If there are no foods, display the EmptyCartScreen
+      return const EmptyCartScreen();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -91,7 +108,16 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
                 textColor: Colors.white,
                 font: 'Shopee_Bold',
                 onpressed: () {
-                  // Xử lý khi nhấn nút Xóa
+                  _selectedItems.forEach((item) {
+                    context.read<CartBloc>().add(RemoveFoodFromCart(
+                        userId: int.tryParse(userId!)!, foodId: item.foodId));
+                  });
+                  setState(() {
+                    widget.foods.removeWhere((food) => _selectedItems
+                        .any((selectedItem) => selectedItem.foodId == food.id));
+                    _selectedItems.clear();
+                    _checkedStates = List<bool>.filled(widget.foods.length, false);
+                  });
                 },
               ),
               RoundedButton(
@@ -103,7 +129,6 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
                 onpressed: () {
                   context.read<OrderBloc>().add(UpdateSelectItems(selectItems: _selectedItems));
                   context.push(RouteName.order);
-
                 },
               ),
             ],
@@ -114,4 +139,3 @@ class _HasProductCartScreenState extends State<HasProductCartScreen> {
     );
   }
 }
-

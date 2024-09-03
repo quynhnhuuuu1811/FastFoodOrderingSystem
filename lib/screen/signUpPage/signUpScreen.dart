@@ -100,7 +100,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  const SizedBox(height: 30),
                   const Text(
                     'Đăng ký',
                     style: TextStyle(
@@ -109,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontFamily: 'Shopee_Bold',
                     ),
                   ),
-                  const SizedBox(height: 20),
+
                   RoundedTextField(
                     controller: _phoneController,
                     hintText: 'Nhập số điện thọai',
@@ -155,7 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) =>
                         validateConfirmPassword(_passwordController.text, value),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 10),
                   RoundedButton(
                     buttonColor: Colors.white,
                     buttonText: 'Đăng kí ngay',
