@@ -15,6 +15,17 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Đặt thời gian trễ 5 giây để chuyển sang trang login
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        context.go(RouteName.login);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -43,10 +54,12 @@ class _IntroScreenState extends State<IntroScreen> {
                       context.go(RouteName.login);
                     },
                     font: 'Anton',
-                    fontSize:30,
-                    icon: const Icon(Icons.navigate_next,
-                    size:50,
-                    color:Colors.black),
+                    fontSize: 30,
+                    icon: const Icon(
+                      Icons.navigate_next,
+                      size: 50,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

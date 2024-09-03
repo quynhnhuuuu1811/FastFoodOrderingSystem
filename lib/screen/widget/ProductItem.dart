@@ -98,6 +98,22 @@ class _ProductItemState extends State<ProductItem> {
                   IconInContainer(
                     onPressed: (){
                       context.read<CartBloc>().add(AddFoodToCart(userId: _userId, foodId: widget.food.id, quantity: 1));
+                      if(context.read<CartBloc>().state==CartStatus.success){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Thêm vào giỏ hàng thành công'),
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Thêm vào giỏ hàng thất bại'),
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      }
                     },
                     icon: Icons.add,
                     color: Colors.black,

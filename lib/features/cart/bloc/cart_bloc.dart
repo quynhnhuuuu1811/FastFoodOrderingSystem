@@ -12,6 +12,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddFoodToCart> (_onAddFoodToCart);
     on<GetCart> (_onGetCart);
     on<UpdateCart> (_onUpdateCart);
+    on<RemoveFoodFromCart> (_onDeleteFoodFromCart);
   }
   final CartRepository cartRepository;
 
@@ -39,6 +40,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(state.copyWith(status: CartStatus.loading));
     try {
       final message = await cartRepository.updateCart(event.userId, event.quantity, event.foodId);
+      emit(state.copyWith(status: CartStatus.success, message: message));
+    } catch (e) {
+      emit(state.copyWith(status: CartStatus.failure, message: e.toString()));
+    }
+  }
+
+  void _onDeleteFoodFromCart(RemoveFoodFromCart event, Emitter<CartState> emit) async {
+    emit(state.copyWith(status: CartStatus.loading));
+    try {
+      final message = await cartRepository.removeFoodFromCart(event.userId, event.foodId);
       emit(state.copyWith(status: CartStatus.success, message: message));
     } catch (e) {
       emit(state.copyWith(status: CartStatus.failure, message: e.toString()));

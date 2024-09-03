@@ -3,27 +3,27 @@ String? validatePhoneNumber(String? phoneNumber) {
   RegExp phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
   final isPhoneValid = phoneRegex.hasMatch(phoneNumber ?? "");
   if (!isPhoneValid) {
-    return 'Please enter a valid phone number';
+    return 'Hãy nhập số điện thoại';
   }
   return null;
 }
 
 String? validatePassword(String? password){
-  if(password==null){
-    return 'Please type a password';
+  if(password!.isEmpty){
+    return 'Hãy nhập mật khẩu';
   }
   if(password.length<6){
-    return'Your password should at least be 6 character';
+    return'Mật khẩu phải trên 6 kí tự';
   }
   return null;
 }
 
 String? validateConfirmPassword(String? password, String? confirmPassword) {
   if (confirmPassword == null || confirmPassword.isEmpty) {
-    return 'Please confirm your password';
+    return 'Hãy điền xác nhận mật khẩu';
   }
   if (password != confirmPassword) {
-    return 'Passwords do not match';
+    return 'Xác nhận mật khẩu không chính xác';
   }
   return null;
 }

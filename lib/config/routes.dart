@@ -44,16 +44,9 @@ static const String productDetail = '/productDetail';
   ];
 }
 
-final router =GoRouter(
-    initialLocation: RouteName.intro, // Set the initial location to intro
-    // redirect: (context, state) {
-    //   // If the user is navigating to a public route or is authenticated, allow the navigation
-    //   if (RouteName.publicRoutes.contains(state.fullPath) || context.read<AuthBloc>().state.status == AuthStatus.success) {
-    //     return null;
-    //   }
-    //   // Otherwise, redirect to the login page
-    //   return RouteName.login;
-    // },
+final router = (String initialLocation) => GoRouter(
+    initialLocation: initialLocation, // Set the initial location to intro
+
     routes: [
       GoRoute(path: RouteName.intro,
         builder: (context, state) => const IntroScreen(),
