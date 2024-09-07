@@ -16,6 +16,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     on<UpdateSelectItems>(_onUpdateSelectItems);
     on<GetOrderByUserId>(_onGetOrderByUserId);
     on<GetBestSeller>(_onGetBestSeller);
+    on<OrderReset>(_onOrderReset);
   }
 
   final OrderRepository _orderRepository ;
@@ -57,5 +58,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     } catch (e) {
       emit(state.copyWith(status: OrderStatus.failure, message: e.toString()));
     }
+  }
+  void _onOrderReset(OrderReset event, Emitter<OrderState> emit) {
+    emit(state.copyWith(status: OrderStatus.initial));
   }
 }
