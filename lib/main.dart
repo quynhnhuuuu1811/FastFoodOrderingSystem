@@ -21,10 +21,10 @@ import 'features/user/bloc/user_bloc.dart';
 import 'features/user/data/user_api_client.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   final sf = await SharedPreferences.getInstance();
   final accessToken = sf.getString('accessToken');
-
   // Xác định đường dẫn ban đầu
   String initialRoute = accessToken != null ? RouteName.home : RouteName.intro;
 

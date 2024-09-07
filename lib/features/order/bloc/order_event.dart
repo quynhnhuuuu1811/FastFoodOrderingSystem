@@ -38,3 +38,7 @@ final class GetOrderByUserId extends OrderEvent {
 final class GetBestSeller extends OrderEvent {
 
 }
+
+final class OrderReset extends OrderEvent {
+
+}

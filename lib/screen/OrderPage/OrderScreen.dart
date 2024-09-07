@@ -79,6 +79,7 @@ class _OrderScreenState extends State<OrderScreen> {
     if (orderState.status == OrderStatus.success) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showPaymentDialog();
+        context.read<OrderBloc>().add(OrderReset());
       });
     } else if (orderState.status == OrderStatus.failure) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -119,7 +120,9 @@ class _OrderScreenState extends State<OrderScreen> {
             );
           },
         );
-      });
+        context.read<OrderBloc>().add(OrderReset());
+      }
+      );
     }
   }
 

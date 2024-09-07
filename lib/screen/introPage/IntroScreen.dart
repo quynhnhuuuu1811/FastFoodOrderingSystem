@@ -17,7 +17,6 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
-    // Đặt thời gian trễ 5 giây để chuyển sang trang login
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         context.go(RouteName.login);
