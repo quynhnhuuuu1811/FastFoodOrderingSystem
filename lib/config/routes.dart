@@ -1,5 +1,6 @@
 
 import 'package:fastfood_ordering_system/features/foods/dtos/food_dto.dart';
+import 'package:fastfood_ordering_system/screen/addProductPage/addProductScreen.dart';
 import 'package:fastfood_ordering_system/screen/categoryPage/CategoryScreen.dart';
 import 'package:fastfood_ordering_system/screen/introPage/IntroScreen.dart';
 import 'package:fastfood_ordering_system/screen/listProductPage/listProductScreen.dart';
@@ -17,9 +18,12 @@ import '../screen/bestSellerPage/BestSellerScreen.dart';
 import '../screen/cartpage/CartScreen.dart';
 import '../screen/editPasswordPage/EditPasswordScreen.dart';
 import '../screen/homepage/HomePageScreen.dart';
+import '../screen/manageProducts/manageProductsScreen.dart';
+
 import '../screen/orderDetailPage/OrderDetailScreen.dart';
 import '../screen/orderHistoryPage/OrderHistoryScreen.dart';
 import '../screen/signInPage/signInScreen.dart';
+import 'package:fastfood_ordering_system/screen/addProductPage/addProductScreen.dart';
 
 class RouteName{
   static const String home = '/';
@@ -36,7 +40,9 @@ class RouteName{
   static const String orderDetail = '/OrderDetail';
   static const String order = '/order';
   static const String bestSeller = '/bestSeller';
-static const String productDetail = '/productDetail';
+  static const String productDetail = '/productDetail';
+  static const String manageProducts = '/ManageProducts';
+  static const String addProduct = '/AddProduct';
   static const publicRoutes = [
     login,
     register,
@@ -109,5 +115,11 @@ final router = (String initialLocation) => GoRouter(
       ),
       GoRoute(path:RouteName.bestSeller,
           builder: (context,state) => const BestSellerScreen()),
+
+      GoRoute(path:RouteName.manageProducts,
+          builder: (context,state) => const ManageProductsScreen()),
+
+      GoRoute(path:RouteName.addProduct,
+          builder: (context,state) =>AddProductScreen()),
     ]
 );

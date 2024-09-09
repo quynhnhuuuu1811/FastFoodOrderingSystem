@@ -25,6 +25,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Forder.png?alt=media&token=9fdacf80-bd62-4f29-84c2-1e868940e755', 'text': 'Đặt hàng', 'route': RouteName.category},
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Finvoice.jpg?alt=media&token=0b6c079a-b63d-44dc-a51e-ea4edabcceb1', 'text': 'Lịch sử mua hàng', 'route': RouteName.orderHistory},
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Fbest_seller.jpg?alt=media&token=712374a0-c52f-467a-9e80-fe1eddbfd28f', 'text': 'Bán chạy', 'route': RouteName.bestSeller},
+    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Fmanage-list.jpg?alt=media&token=957c254c-fb90-4de2-a1b3-85d8bfefd83d', 'text': 'Danh sách sản phẩm', 'route': RouteName.manageProducts},
+    {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Faddproduct.png?alt=media&token=3068557f-ad1b-427f-bc85-937011a28ccc', 'text': 'Thêm sản phẩm', 'route': RouteName.addProduct},
+
   ];
 
   @override
@@ -106,7 +109,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 thickness: 1.5,
               ),
               SizedBox(
-                height: 300,
+                height: 550,
                 child: GridView.count(
                   crossAxisCount: 2,
                   childAspectRatio: 3 / 2,
@@ -117,7 +120,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     return ItemofGridView(
                       picturePath: feature['picturePath']!,
                       text: feature['text']!,
-                      height:80,
+                      height:60,
                       onTap: () {
                         context.push(feature['route']!);
                       },
