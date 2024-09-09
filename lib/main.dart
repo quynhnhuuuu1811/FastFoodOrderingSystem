@@ -5,6 +5,7 @@ import 'package:fastfood_ordering_system/features/cart/data/cart_api_client.dart
 import 'package:fastfood_ordering_system/features/countController/bloc/count_controller_bloc.dart';
 import 'package:fastfood_ordering_system/features/order/data/order_api_client.dart';
 import 'package:fastfood_ordering_system/features/user/data/user_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,10 +20,13 @@ import 'features/order/bloc/order_bloc.dart';
 import 'features/order/data/order_repository.dart';
 import 'features/user/bloc/user_bloc.dart';
 import 'features/user/data/user_api_client.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final sf = await SharedPreferences.getInstance();
   final accessToken = sf.getString('accessToken');
   // Xác định đường dẫn ban đầu
