@@ -14,6 +14,7 @@ class FoodBloc extends Bloc<FoodEvent, FoodState> {
     on<UpdateFood>(_onUpdateFood);
     on<DeleteFood>(_onDeleteFood);
     on<FetchAllFoods>(_onFetchAllFoods);
+    on<ResetState>(_onResetState);
   }
   final FoodRepository _foodRepository ;
   void _onFetchFoodsByCategory(
@@ -45,17 +46,36 @@ class FoodBloc extends Bloc<FoodEvent, FoodState> {
   }
 
   void _onUpdateFood(
-    UpdateFood event,
-    Emitter<FoodState> emit,
-  ) async {
+      UpdateFood event,
+      Emitter<FoodState> emit,
+      ) async {
+    // Print each event field for debugging
+    print('Updating Food with the following details:');
+    print('ID: ${event.id}');
+    print('Name: ${event.name}');
+    print('Price: ${event.price}');
+    print('Image: ${event.image}');
+    print('Category: ${event.category}');
+
     emit(state.copyWith(status: FoodStatus.loading));
+
     try {
-      final food = await _foodRepository.updateFood(event.id, event.name, event.price, event.image, event.category);
-      emit(state.copyWith(status: FoodStatus.success));
+      final food = await _foodRepository.updateFood(
+        event.id,
+        event.name,
+        event.price,
+        event.image,
+        event.category,
+      );
+      add(FetchAllFoods());
+      emit(state.copyWith(status: FoodStatus.updateSuccess));
     } catch (e) {
       emit(state.copyWith(status: FoodStatus.failure, message: e.toString()));
+      // Print the error message for debugging
+      print('Failed to update food: ${e.toString()}');
     }
   }
+
 
   void _onDeleteFood(
     DeleteFood event,
@@ -64,7 +84,9 @@ class FoodBloc extends Bloc<FoodEvent, FoodState> {
     emit(state.copyWith(status: FoodStatus.loading));
     try {
       await _foodRepository.deleteFood(event.id);
-      emit(state.copyWith(status: FoodStatus.success));
+      final updatedFoods = List<FoodDto>.from(state.foods)
+        ..removeWhere((food) => food.id == event.id);
+      emit(state.copyWith(foods: updatedFoods, status: FoodStatus.success));
     } catch (e) {
       emit(state.copyWith(status: FoodStatus.failure, message: e.toString()));
     }
@@ -81,5 +103,12 @@ class FoodBloc extends Bloc<FoodEvent, FoodState> {
     } catch (e) {
       emit(state.copyWith(status: FoodStatus.failure, message: e.toString()));
     }
+  }
+
+  void _onResetState(
+    ResetState event,
+    Emitter<FoodState> emit,
+  ) async {
+    emit(state.copyWith(status: FoodStatus.initial));
   }
 }

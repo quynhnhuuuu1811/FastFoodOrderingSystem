@@ -19,11 +19,13 @@ class FoodRepository{
     return foodApiClient.deleteFood(id);
   }
 
-  Future<FoodDto> updateFood(int id, String name,int price,String image,int category) async{
-    return foodApiClient.updateFood(FoodRequestDto(id:id,name: name, price: price, image: image, category: category));
+  Future<void> updateFood(int id, String name,int price,String image,int category) async{
+    foodApiClient.updateFood(FoodRequestDto(id:id,name: name, price: price, image: image, category: category));
+    return ;
   }
 
   Future<List<FoodDto>> fetchFoodAllFood() async{
     return foodApiClient.fetchFoods();
   }
+
 }

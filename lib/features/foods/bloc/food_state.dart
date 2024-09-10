@@ -1,6 +1,6 @@
 part of 'food_bloc.dart';
 
-enum  FoodStatus { initial, loading, success, failure }
+enum  FoodStatus { initial, loading, success,updateSuccess, failure }
 final class FoodState {
   final List<FoodDto> foods;
   final FoodStatus status;

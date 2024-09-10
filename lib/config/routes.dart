@@ -76,7 +76,7 @@ final router = (String initialLocation) => GoRouter(
           builder: (context, state) {
             final categoryId = state.extra as int; // Giả sử `category.id` là String
             // Trả về widget với categoryId
-            return listProductScreen(categoryId: categoryId);
+            return ListProductScreen(categoryId: categoryId);
           }
       ),
       GoRoute(path: RouteName.orderHistory,

@@ -3,8 +3,10 @@ import 'package:fastfood_ordering_system/screen/widget/ItemofGridView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constant/app_color.dart';
 
+import '../../utils/token.dart';
 import '../widget/CustomeIconButton.dart';
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -19,7 +21,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     'assets/images/poster2.png',
     'assets/images/poster3.png',
   ];
-
+  bool admin = false;
   final List<Map<String, dynamic>> featureList = [
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Faccount.jpg?alt=media&token=c4f4c5c5-7600-4b05-ba4f-6e3884cdf107', 'text': 'Tài khoản', 'route': RouteName.account},
     {'picturePath': 'https://firebasestorage.googleapis.com/v0/b/fast-food-ordering-syste-cdcdd.appspot.com/o/homepage_features%2Forder.png?alt=media&token=9fdacf80-bd62-4f29-84c2-1e868940e755', 'text': 'Đặt hàng', 'route': RouteName.category},
@@ -30,8 +32,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   ];
 
+@override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _loadData();
+  }
+
+
+  void _loadData() async {
+    final isAdmin = await getAdmin();
+    setState(() {
+      admin = isAdmin;
+    });
+  }
+  Future<bool> getAdmin() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    final jwt = sf.getString('accessToken');
+    return getRoleFromToken(jwt!);
+  }
   @override
   Widget build(BuildContext context) {
+    // Filter featureList based on admin status
+    final filteredFeatureList = admin
+        ? featureList
+        : featureList.where((feature) => feature['text'] != 'Danh sách sản phẩm' && feature['text'] != 'Thêm sản phẩm').toList();
+  print(admin);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -89,18 +116,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       fit: BoxFit.cover,
                     );
                   },
-                  itemCount: imgList.length,pagination: const SwiperPagination(
+                  itemCount: imgList.length,
+                  pagination: const SwiperPagination(
                     builder: DotSwiperPaginationBuilder(
                       activeColor: AppColors.yellowColor,
                       color: Colors.white,
                       size: 10,
                       activeSize: 12,
-                    )
-                ),
+                    ),
+                  ),
                   control: const SwiperControl(
                     color: Colors.black,
                     disableColor: Colors.red,
-
                   ),
                 ),
               ),
@@ -116,11 +143,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                   padding: const EdgeInsets.all(10),
-                  children: featureList.map((feature) {
+                  children: filteredFeatureList.map((feature) {
                     return ItemofGridView(
                       picturePath: feature['picturePath']!,
                       text: feature['text']!,
-                      height:60,
+                      height: 60,
                       onTap: () {
                         context.push(feature['route']!);
                       },
@@ -134,4 +161,5 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
     );
   }
+
 }

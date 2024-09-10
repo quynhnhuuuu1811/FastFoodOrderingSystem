@@ -30,7 +30,7 @@ class FoodRequestDto {
       'name': name,
       'price': price,
       'image': image,
-      'FoodType': category,
+      'FoodTypeId': category,
     };
   }
 }
