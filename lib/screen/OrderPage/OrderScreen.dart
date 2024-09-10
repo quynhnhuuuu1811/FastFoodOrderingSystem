@@ -26,6 +26,8 @@ class _OrderScreenState extends State<OrderScreen> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
+  bool _isOrderProcessed = false; // Track if the order was already processed
+
   Future<void> _loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('accessToken');
@@ -64,9 +66,9 @@ class _OrderScreenState extends State<OrderScreen> {
                 'OK',
                 style: TextStyle(color: Colors.black, fontSize: 17),
               ),
-              onPressed: () {
-                context.pop(); // Close the dialog
-                context.go(RouteName.home); // Navigate back to the cart
+              onPressed: () async {
+                await _resetOrderState(); // Reset order state after navigating
+                context.go(RouteName.home); // Navigate back to the home
               },
             ),
           ],
@@ -75,13 +77,22 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
+  Future<void> _resetOrderState() async {
+    setState(() {
+      _isOrderProcessed = false;
+    });
+    context.read<OrderBloc>().add(OrderReset()); // Reset OrderBloc state if needed
+  }
+
   void _handleOrderState(OrderState orderState) {
-    if (orderState.status == OrderStatus.success) {
+    if (orderState.status == OrderStatus.success && !_isOrderProcessed) {
+      setState(() {
+        _isOrderProcessed = true; // Mark the order as processed
+      });
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showPaymentDialog();
-        context.read<OrderBloc>().add(OrderReset());
       });
-    } else if (orderState.status == OrderStatus.failure) {
+    } else if (orderState.status == OrderStatus.failure && !_isOrderProcessed) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
           context: context,
@@ -120,9 +131,7 @@ class _OrderScreenState extends State<OrderScreen> {
             );
           },
         );
-        context.read<OrderBloc>().add(OrderReset());
-      }
-      );
+      });
     }
   }
 
@@ -143,7 +152,6 @@ class _OrderScreenState extends State<OrderScreen> {
         note: note,
       ));
     }
-
   }
 
   @override
@@ -155,10 +163,9 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     final orderState = context.watch<OrderBloc>().state;
+    print(orderState.status);
     _handleOrderState(orderState);
-    // Reset totalAmount before recalculating
-   calculateTotalAmount(orderState.selectItems);
-
+    calculateTotalAmount(orderState.selectItems);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -194,9 +201,9 @@ class _OrderScreenState extends State<OrderScreen> {
               Form(
                 key: _formKey,
                 child: Column(
-                children: [
-                  RoundedTextField(
-                      controller:_addressController,
+                  children: [
+                    RoundedTextField(
+                      controller: _addressController,
                       hintText: 'Nhập địa chỉ giao hàng',
                       icon: Icons.location_on,
                       isPassword: false,
@@ -204,9 +211,10 @@ class _OrderScreenState extends State<OrderScreen> {
                       keyboardType: TextInputType.text,
                       hintTextColor: AppColors.grayColor,
                       textInputAction: TextInputAction.next,
-                      validator: validateAddress),
-                  RoundedTextField(
-                      controller:_noteController,
+                      validator: validateAddress,
+                    ),
+                    RoundedTextField(
+                      controller: _noteController,
                       hintText: 'Nhập ghi chú',
                       icon: Icons.note_alt_sharp,
                       isPassword: false,
@@ -214,9 +222,10 @@ class _OrderScreenState extends State<OrderScreen> {
                       keyboardType: TextInputType.text,
                       hintTextColor: AppColors.grayColor,
                       textInputAction: TextInputAction.done,
-                      validator:null),
-                ]
-                )
+                      validator: null,
+                    ),
+                  ],
+                ),
               ),
               const Divider(),
               Column(
@@ -226,7 +235,6 @@ class _OrderScreenState extends State<OrderScreen> {
                     itemCount: orderState.selectItems.length,
                     itemBuilder: (context, index) {
                       final item = orderState.selectItems[index];
-                      totalAmount += item.price * item.quantity;
                       return OrderItem(
                         productname: item.name,
                         price: item.price,
@@ -274,5 +282,5 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
     );
   }
-
 }
+

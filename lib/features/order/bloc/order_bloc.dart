@@ -60,6 +60,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     }
   }
   void _onOrderReset(OrderReset event, Emitter<OrderState> emit) {
-    emit(state.copyWith(status: OrderStatus.initial));
+    emit(OrderInitial());
   }
 }
