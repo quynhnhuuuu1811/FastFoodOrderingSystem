@@ -32,7 +32,16 @@ class UpdateFood extends FoodEvent {
   final String image;
   final int category;
 
-  UpdateFood(this.id, this.name, this.price, this.image, this.category);
+  UpdateFood({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.category
+  });
 }
 
 class FetchAllFoods extends FoodEvent {}
+
+class ResetState extends FoodEvent {
+}

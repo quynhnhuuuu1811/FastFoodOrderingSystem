@@ -18,3 +18,6 @@ class AuthLogoutStarted extends AuthEvent {
 }
 class AuthAuthenticateStarted extends AuthEvent {
 }
+
+class AuthLogout extends AuthEvent {
+}

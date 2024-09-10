@@ -11,12 +11,13 @@ class FoodApiClient {
   FoodApiClient({required this.dio});
 
   Future<List<FoodDto>> fetchFoodsByCategory(int categoryId) async {
-
+    print("categoryId: $categoryId");
     try {
       final response = await dio.get(
         '/v1/foods/foodTypes/$categoryId'
       );
 
+      print("response: $response");
       // Kiểm tra phản hồi và dữ liệu
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
@@ -40,6 +41,8 @@ class FoodApiClient {
     }
   }
 
+
+
   Future<FoodDto> addFood(FoodRequestDto food) async {
     try {
       final response = await dio.post(
@@ -47,7 +50,7 @@ class FoodApiClient {
         data: food.toJson(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return FoodDto.fromJson(response.data);
       } else {
         log('Failed with status code: ${response.statusCode}');
@@ -74,7 +77,7 @@ class FoodApiClient {
         '/v1/foods/$id',
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 204) {
         log('Failed with status code: ${response.statusCode}');
         throw Exception('Failed to delete food. Status code: ${response.statusCode}');
       }
@@ -94,15 +97,16 @@ class FoodApiClient {
     }
   }
 
-  Future<FoodDto> updateFood(FoodRequestDto food) async {
+  Future<void> updateFood(FoodRequestDto food) async {
     try {
-      final response = await dio.put(
+      final response = await dio.patch(
         '/v1/foods/${food.id}',
         data: food.toJson(),
       );
 
       if (response.statusCode == 200) {
-        return FoodDto.fromJson(response.data);
+        log('Food updated successfully${response.data}');
+        return ;
       } else {
         log('Failed with status code: ${response.statusCode}');
         throw Exception('Failed to update food. Status code: ${response.statusCode}');

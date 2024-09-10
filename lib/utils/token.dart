@@ -12,3 +12,16 @@ String getUserIdFromToken(String token) {
     return '';
   }
 }
+
+bool getRoleFromToken(String token) {
+  try {
+    // Giải mã token
+    final jwt = JWT.decode(token);
+    // Lấy role từ payload
+    final role = jwt.payload['admin'];
+    return role;
+  } catch (e) {
+    print('Failed to decode JWT: $e');
+    return false;
+  }
+}

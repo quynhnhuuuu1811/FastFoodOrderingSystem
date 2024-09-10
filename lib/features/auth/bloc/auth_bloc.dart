@@ -12,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthStarted>(_onStarted);
     on<AuthRegisterStarted>(_onAuthRegisterStarted);
     on<AuthLoginStarted>(_onAuthLoginStarted);
+    on<AuthLogout>(_onAuthLogout);
   }
 
   final AuthRepository _authRepository ;
@@ -35,6 +36,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return (
         switch(result){
       Success() => emit(state.copyWith(status: AuthStatus.success)),
+      Failed() => emit(state.copyWith(status: AuthStatus.failed, errorMsg: result.message))
+    });
+  }
+
+  void _onAuthLogout(AuthLogout event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: AuthStatus.loading));
+    final result=await _authRepository.logout();
+    return (
+        switch(result){
+      Success() => emit(AuthLogoutSuccess()),
       Failed() => emit(state.copyWith(status: AuthStatus.failed, errorMsg: result.message))
     });
   }

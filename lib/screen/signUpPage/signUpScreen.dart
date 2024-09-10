@@ -133,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   RoundedTextField(
                     controller: _passwordController,
-                    hintText: 'Nhập mật khẩu (ít nhất 8 ký tự)',
+                    hintText: 'Nhập mật khẩu (ít nhất 6 ký tự)',
                     icon: Icons.key,
                     isPassword: true,
                     selectColor: Colors.white,

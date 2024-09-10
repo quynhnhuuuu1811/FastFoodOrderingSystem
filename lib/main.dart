@@ -3,6 +3,7 @@ import 'package:fastfood_ordering_system/features/auth/data/network/auth_interce
 import 'package:fastfood_ordering_system/features/cart/bloc/cart_bloc.dart';
 import 'package:fastfood_ordering_system/features/cart/data/cart_api_client.dart';
 import 'package:fastfood_ordering_system/features/countController/bloc/count_controller_bloc.dart';
+import 'package:fastfood_ordering_system/features/foods/data/food_api_client.dart';
 import 'package:fastfood_ordering_system/features/order/data/order_api_client.dart';
 import 'package:fastfood_ordering_system/features/user/data/user_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,6 +17,8 @@ import 'features/auth/data/auth_api_client.dart';
 import 'features/auth/data/auth_local_data_source.dart';
 import 'features/auth/data/auth_repository.dart';
 import 'features/cart/data/cart_repository.dart';
+import 'features/foods/bloc/food_bloc.dart';
+import 'features/foods/data/food_repository.dart';
 import 'features/order/bloc/order_bloc.dart';
 import 'features/order/data/order_repository.dart';
 import 'features/user/bloc/user_bloc.dart';
@@ -62,6 +65,11 @@ class MyApp extends StatelessWidget {
           ),
         ),
         RepositoryProvider(
+          create: (context) => FoodRepository(
+            foodApiClient: FoodApiClient(dio: dio),
+          ),
+        ),
+        RepositoryProvider(
           create: (context) => UserRepository(
             userApiClient: UserApiClient(dio: dio),
           ),
@@ -80,6 +88,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => OrderBloc(context.read<OrderRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => FoodBloc(context.read<FoodRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => FoodBloc(context.read<FoodRepository>()),
           ),
           BlocProvider(
             create: (context) => UserBloc(context.read<UserRepository>()),
